@@ -50,8 +50,13 @@
         <!-- Gallery -->
         <div data-aos="fade-right">
             <div class="gallery-main" id="gallery-main">
-                @if($product->images->count() > 0)
-                    <img src="{{ $product->images->first()->url }}" alt="{{ $product->name }}" id="gallery-main-img" loading="eager">
+                @php
+                    $mainImage = $product->images->where('is_primary', true)->first() ?? $product->images->first();
+                @endphp
+                @if($mainImage)
+                    <img src="{{ $mainImage->url }}" alt="{{ $product->name }}" id="gallery-main-img" loading="eager">
+                @elseif($product->primary_image)
+                    <img src="{{ $product->primary_image_url }}" alt="{{ $product->name }}" id="gallery-main-img" loading="eager">
                 @else
                     <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--ivory-dark)">
                         <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--border)" stroke-width="1.5"><rect x="3" y="3" width="18" height="13" rx="2"/></svg>
@@ -61,7 +66,7 @@
             @if($product->images->count() > 1)
             <div class="gallery-thumbs">
                 @foreach($product->images as $img)
-                <div class="gallery-thumb {{ $loop->first ? 'active' : '' }}" onclick="changeImage('{{ $img->url }}', this)">
+                <div class="gallery-thumb {{ ($mainImage && $img->id === $mainImage->id) ? 'active' : '' }}" onclick="changeImage('{{ $img->url }}', this)">
                     <img src="{{ $img->url }}" alt="{{ $product->name }}" loading="lazy">
                 </div>
                 @endforeach

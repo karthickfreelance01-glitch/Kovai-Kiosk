@@ -124,14 +124,20 @@ class ProductController extends Controller
             // Add new images
             if ($request->hasFile('images')) {
                 $maxOrder = $product->images()->max('sort_order') ?? -1;
+                $hasPrimary = $product->images()->where('is_primary', true)->exists() || !empty($product->primary_image);
                 foreach ($request->file('images') as $index => $image) {
                     $path = $image->store('products', 'public');
+                    $isPrimary = (!$hasPrimary && $index === 0);
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image_path' => $path,
-                        'is_primary' => false,
+                        'is_primary' => $isPrimary,
                         'sort_order' => $maxOrder + $index + 1,
                     ]);
+                    if ($isPrimary) {
+                        $product->update(['primary_image' => $path]);
+                        $hasPrimary = true;
+                    }
                 }
             }
 
