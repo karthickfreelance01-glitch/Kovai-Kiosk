@@ -162,5 +162,8 @@ class DatabaseSeeder extends Seeder
 
         // Hero Sliders
         $this->call(HeroSliderSeeder::class);
+
+        // About Showcase (Query Loop)
+        $this->call(AboutShowcaseSeeder::class);
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\EnquiryController as AdminEnquiryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\HeroSliderController;
+use App\Http\Controllers\Admin\AboutShowcaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,6 +78,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Hero Sliders (Website Management)
     Route::resource('hero-sliders', HeroSliderController::class);
     Route::post('/hero-sliders/{hero_slider}/toggle-status', [HeroSliderController::class, 'toggleStatus'])->name('hero-sliders.toggle-status');
+
+    // About Pathy - Product Query Loop Showcase
+    Route::resource('about-showcase', AboutShowcaseController::class)->except(['create', 'edit', 'show']);
+    Route::post('/about-showcase/{about_showcase}/toggle-status', [AboutShowcaseController::class, 'toggleStatus'])->name('about-showcase.toggle-status');
 
     // Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');

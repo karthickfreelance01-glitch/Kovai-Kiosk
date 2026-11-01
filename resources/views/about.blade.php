@@ -83,6 +83,347 @@
     .about-grid { grid-template-columns: 1fr; }
     .values-grid, .infra-grid { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   QUERY LOOP STYLE 3D OVERLAPPING PRODUCT CAROUSEL
+========================================================= */
+.about-queryloop-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F4 50%, #F5F1E8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.queryloop-carousel-wrap {
+    position: relative;
+    width: 100%;
+    margin-top: 50px;
+    padding: 20px 0 30px;
+}
+
+.queryloop-stage {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 520px;
+    perspective: 1400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.queryloop-card {
+    position: absolute;
+    width: 380px;
+    max-width: 86vw;
+    background: #FFFFFF;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    transition:
+        transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.65s ease,
+        box-shadow 0.65s ease,
+        filter 0.65s ease,
+        border-color 0.65s ease;
+    will-change: transform, opacity;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Center Card - Prominent in Foreground */
+.queryloop-card.card-center {
+    transform: translateX(0) scale(1.06) translateZ(50px);
+    z-index: 10;
+    opacity: 1;
+    pointer-events: auto;
+    border-color: rgba(201, 168, 76, 0.5);
+    box-shadow:
+        0 25px 65px rgba(0, 0, 0, 0.16),
+        0 0 30px rgba(201, 168, 76, 0.18);
+    filter: blur(0px);
+}
+
+/* Left Card - Partially behind center */
+.queryloop-card.card-left {
+    transform: translateX(-56%) scale(0.86) rotateY(4.5deg) translateZ(0);
+    z-index: 5;
+    opacity: 0.72;
+    pointer-events: auto;
+    cursor: pointer;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.10);
+    filter: blur(0.5px);
+}
+
+.queryloop-card.card-left:hover {
+    opacity: 0.88;
+    transform: translateX(-54%) scale(0.88) rotateY(3deg) translateZ(10px);
+}
+
+/* Right Card - Partially behind center */
+.queryloop-card.card-right {
+    transform: translateX(56%) scale(0.86) rotateY(-4.5deg) translateZ(0);
+    z-index: 5;
+    opacity: 0.72;
+    pointer-events: auto;
+    cursor: pointer;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.10);
+    filter: blur(0.5px);
+}
+
+.queryloop-card.card-right:hover {
+    opacity: 0.88;
+    transform: translateX(54%) scale(0.88) rotateY(-3deg) translateZ(10px);
+}
+
+/* Hidden / Offstage Cards */
+.queryloop-card.card-hidden-left {
+    transform: translateX(-120%) scale(0.7) translateZ(-50px);
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.queryloop-card.card-hidden-right {
+    transform: translateX(120%) scale(0.7) translateZ(-50px);
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Card Visual Header */
+.queryloop-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: #1A2E45;
+}
+
+.queryloop-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.queryloop-card.card-center:hover .queryloop-card-media img {
+    transform: scale(1.06);
+}
+
+.queryloop-badge-cat {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(13, 27, 42, 0.82);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.queryloop-badge-custom {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: #FFFFFF;
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-size: 0.68rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+/* Card Information Body */
+.queryloop-card-body {
+    padding: 22px 24px 26px;
+    background: #FFFFFF;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.queryloop-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.queryloop-card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 40px;
+}
+
+.queryloop-card-action {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.queryloop-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy);
+    transition: var(--transition);
+}
+
+.queryloop-card.card-center .queryloop-card-btn {
+    color: var(--gold-dark);
+}
+
+.queryloop-card.card-center:hover .queryloop-card-btn {
+    color: var(--gold);
+    transform: translateX(4px);
+}
+
+.queryloop-card-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(201, 168, 76, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-dark);
+    transition: all 0.25s ease;
+}
+
+.queryloop-card.card-center:hover .queryloop-card-arrow {
+    background: var(--gold);
+    color: #FFFFFF;
+    transform: scale(1.1);
+}
+
+/* Circular Navigation Buttons */
+.queryloop-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    color: var(--text-primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 25;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.queryloop-prev {
+    left: calc(50% - 470px);
+}
+
+.queryloop-next {
+    right: calc(50% - 470px);
+}
+
+.queryloop-nav-btn:hover {
+    background: var(--gold);
+    color: #FFFFFF;
+    border-color: var(--gold);
+    box-shadow: 0 10px 30px rgba(201, 168, 76, 0.45);
+    transform: translateY(-50%) scale(1.08);
+}
+
+/* Pagination Dots */
+.queryloop-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.queryloop-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    border: none;
+}
+
+.queryloop-dot.active {
+    width: 24px;
+    border-radius: 10px;
+    background: var(--gold);
+    box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .queryloop-stage { max-width: 900px; height: 500px; }
+    .queryloop-card { width: 330px; }
+    .queryloop-card.card-left { transform: translateX(-48%) scale(0.86) rotateY(4deg); }
+    .queryloop-card.card-right { transform: translateX(48%) scale(0.86) rotateY(-4deg); }
+    .queryloop-prev { left: 16px; }
+    .queryloop-next { right: 16px; }
+}
+
+@media (max-width: 768px) {
+    .about-queryloop-section { padding: 70px 0; }
+    .queryloop-stage { height: 480px; }
+    .queryloop-card { width: 300px; max-width: 84vw; }
+    .queryloop-card.card-center { transform: translateX(0) scale(1.02); }
+    .queryloop-card.card-left { transform: translateX(-70%) scale(0.82) rotateY(3deg); opacity: 0.25; pointer-events: none; }
+    .queryloop-card.card-right { transform: translateX(70%) scale(0.82) rotateY(-3deg); opacity: 0.25; pointer-events: none; }
+    .queryloop-card-title { font-size: 1.15rem; }
+    .queryloop-card-desc { font-size: 0.78rem; min-height: 36px; }
+    .queryloop-nav-btn { width: 40px; height: 40px; }
+    .queryloop-prev { left: 8px; }
+    .queryloop-next { right: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .queryloop-card {
+        transition-duration: 0.01ms !important;
+    }
+}
 </style>
 @endsection
 
@@ -173,6 +514,104 @@
                 <p style="color:var(--text-secondary);line-height:1.8">To deliver premium, customized kiosk solutions that exceed client expectations through innovative design, superior craftsmanship, and end-to-end professional service — at every price point.</p>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- ===== QUERY LOOP 3D OVERLAPPING PRODUCT CAROUSEL ===== -->
+<section class="about-queryloop-section" id="about-showcase" aria-label="Featured Product Showcase">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <div class="section-label">Engineering Excellence</div>
+            <h2 class="section-title">Our Signature Manufacturing Showcase</h2>
+            <p class="section-subtitle">Explore custom-engineered Smart Kiosks, Gourmet Mobile Carts, and EV Commercial Units designed and fabricated by Pathy & Kovai Kiosk craftsmen.</p>
+        </div>
+
+        @if(isset($showcaseProducts) && $showcaseProducts->isNotEmpty())
+        <div class="queryloop-carousel-wrap" id="queryloop-container" data-aos="fade-up" data-aos-delay="100">
+            <!-- Navigation Buttons -->
+            <button type="button" class="queryloop-nav-btn queryloop-prev" id="queryloop-prev" aria-label="Previous Product">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button type="button" class="queryloop-nav-btn queryloop-next" id="queryloop-next" aria-label="Next Product">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+
+            <!-- 3D Overlapping Stage -->
+            <div class="queryloop-stage" id="queryloop-stage" role="region" aria-label="3D Product Carousel" aria-roledescription="carousel">
+                @foreach($showcaseProducts as $index => $prod)
+                <div class="queryloop-card {{ $index === 0 ? 'card-center' : ($index === 1 ? 'card-right' : ($index === count($showcaseProducts) - 1 ? 'card-left' : 'card-hidden-right')) }}"
+                     data-card-index="{{ $index }}"
+                     role="group"
+                     aria-roledescription="slide"
+                     aria-label="{{ $prod->name }}">
+                    
+                    <!-- Card Top Media -->
+                    <div class="queryloop-card-media">
+                        <img src="{{ $prod->primary_image_url }}" alt="{{ $prod->name }}" loading="{{ $index < 3 ? 'eager' : 'lazy' }}" onerror="this.onerror=null;this.src='{{ asset('images/about-factory.jpg') }}'">
+                        
+                        @if($prod->category)
+                        <div class="queryloop-badge-cat">
+                            @if(stripos($prod->category->name, 'kiosk') !== false)
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            @elseif(stripos($prod->category->name, 'cart') !== false)
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            @else
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            @endif
+                            <span>{{ $prod->category->name }}</span>
+                        </div>
+                        @endif
+
+                        @if(!empty($prod->custom_badge))
+                        <div class="queryloop-badge-custom">
+                            ★ {{ $prod->custom_badge }}
+                        </div>
+                        @endif
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="queryloop-card-body">
+                        <h3 class="queryloop-card-title">{{ $prod->name }}</h3>
+                        <p class="queryloop-card-desc">
+                            {{ $prod->short_description ?? Str::limit($prod->description, 95) }}
+                        </p>
+
+                        <div class="queryloop-card-action">
+                            @if($prod->category)
+                            <a href="{{ route('products.show', [$prod->category->slug, $prod->slug]) }}" class="queryloop-card-btn">
+                                <span>Explore Specifications</span>
+                                <div class="queryloop-card-arrow">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </div>
+                            </a>
+                            @else
+                            <a href="{{ route('products.index') }}" class="queryloop-card-btn">
+                                <span>View Catalogue</span>
+                                <div class="queryloop-card-arrow">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </div>
+                            </a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+
+            <!-- Pagination Dots -->
+            <div class="queryloop-dots" id="queryloop-dots" role="tablist" aria-label="Showcase Pagination">
+                @foreach($showcaseProducts as $index => $prod)
+                <button type="button" class="queryloop-dot {{ $index === 0 ? 'active' : '' }}" data-dot-index="{{ $index }}" role="tab" aria-selected="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Go to product {{ $index + 1 }}"></button>
+                @endforeach
+            </div>
+        </div>
+        @else
+        <!-- Graceful fallback if empty -->
+        <div style="text-align:center;padding:60px 20px;background:#fff;border-radius:20px;margin-top:40px;border:1px solid rgba(201,168,76,0.25)">
+            <p style="color:var(--text-muted);font-size:1rem">Showcase items currently being updated. Please check our complete catalogue below.</p>
+            <a href="{{ route('products.index') }}" class="btn btn-primary" style="margin-top:20px">Explore All Products</a>
+        </div>
+        @endif
     </div>
 </section>
 
@@ -295,4 +734,194 @@
     </div>
 </section>
 
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const container = document.getElementById('queryloop-container');
+    const stage = document.getElementById('queryloop-stage');
+    if (!stage) return;
+
+    const cards = Array.from(stage.querySelectorAll('.queryloop-card'));
+    const prevBtn = document.getElementById('queryloop-prev');
+    const nextBtn = document.getElementById('queryloop-next');
+    const dotsContainer = document.getElementById('queryloop-dots');
+    const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.queryloop-dot')) : [];
+
+    const total = cards.length;
+    if (total === 0) return;
+
+    let currentIndex = 0;
+    let isTransitioning = false;
+    let autoSlideTimer = null;
+    let isPaused = false;
+    const intervalTime = 4600; // ms
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Apply layout positions according to active center index
+    function updatePositions(newIndex, direction = 'next') {
+        if (isTransitioning && newIndex === currentIndex) return;
+        isTransitioning = true;
+
+        const leftIndex = (newIndex - 1 + total) % total;
+        const rightIndex = (newIndex + 1) % total;
+
+        cards.forEach((card, idx) => {
+            // Remove previous positioning classes
+            card.classList.remove('card-center', 'card-left', 'card-right', 'card-hidden-left', 'card-hidden-right');
+
+            if (idx === newIndex) {
+                card.classList.add('card-center');
+                card.setAttribute('aria-hidden', 'false');
+            } else if (idx === leftIndex && total > 1) {
+                card.classList.add('card-left');
+                card.setAttribute('aria-hidden', 'false');
+            } else if (idx === rightIndex && total > 2) {
+                card.classList.add('card-right');
+                card.setAttribute('aria-hidden', 'false');
+            } else {
+                // Determine whether hidden on left or right side for smooth offstage transitions
+                const diff = (idx - newIndex + total) % total;
+                if (diff < total / 2) {
+                    card.classList.add('card-hidden-right');
+                } else {
+                    card.classList.add('card-hidden-left');
+                }
+                card.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        // Synchronize dots
+        if (dots.length > 0) {
+            dots.forEach((dot, idx) => {
+                const isActive = idx === newIndex;
+                dot.classList.toggle('active', isActive);
+                dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+        }
+
+        currentIndex = newIndex;
+
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 650);
+    }
+
+    function next() {
+        const target = (currentIndex + 1) % total;
+        updatePositions(target, 'next');
+    }
+
+    function prev() {
+        const target = (currentIndex - 1 + total) % total;
+        updatePositions(target, 'prev');
+    }
+
+    // Auto Play Timer
+    function startAutoPlay() {
+        if (prefersReducedMotion || total <= 1) return;
+        stopAutoPlay();
+        autoSlideTimer = setInterval(() => {
+            if (!isPaused) {
+                next();
+            }
+        }, intervalTime);
+    }
+
+    function stopAutoPlay() {
+        if (autoSlideTimer) {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = null;
+        }
+    }
+
+    // Button event listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            next();
+            startAutoPlay();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            prev();
+            startAutoPlay();
+        });
+    }
+
+    // Direct card click: clicking left card brings it to center, clicking right card brings it to center
+    cards.forEach((card, index) => {
+        card.addEventListener('click', function (e) {
+            // Don't intercept click on action links/buttons
+            if (e.target.closest('.queryloop-card-btn') || e.target.closest('a')) {
+                return;
+            }
+
+            if (card.classList.contains('card-left')) {
+                e.preventDefault();
+                prev();
+                startAutoPlay();
+            } else if (card.classList.contains('card-right')) {
+                e.preventDefault();
+                next();
+                startAutoPlay();
+            }
+        });
+    });
+
+    // Pagination Dots click
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            updatePositions(index, index > currentIndex ? 'next' : 'prev');
+            startAutoPlay();
+        });
+    });
+
+    // Pause on Hover
+    if (container) {
+        container.addEventListener('mouseenter', () => { isPaused = true; });
+        container.addEventListener('mouseleave', () => { isPaused = false; });
+    }
+
+    // Mobile Swipe / Touch Events
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    stage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        isPaused = true;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        isPaused = false;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+            if (deltaX < 0) {
+                next();
+            } else {
+                prev();
+            }
+            startAutoPlay();
+        }
+    }, { passive: true });
+
+    // Initial position setup
+    updatePositions(0);
+    startAutoPlay();
+});
+</script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\HeroSlider;
+use App\Models\AboutShowcaseProduct;
 use App\Models\Product;
 use App\Models\Project;
 use App\Models\WebsiteSetting;
@@ -57,7 +58,29 @@ class HomeController extends Controller
 
     public function about()
     {
-        return view('about');
+        $showcaseItems = AboutShowcaseProduct::with(['product.category', 'product.images'])
+            ->active()
+            ->get();
+
+        if ($showcaseItems->isNotEmpty()) {
+            $showcaseProducts = $showcaseItems->map(function ($item) {
+                $product = $item->product;
+                if ($product && $product->is_active) {
+                    $product->custom_badge = $item->custom_badge;
+                    return $product;
+                }
+                return null;
+            })->filter()->values();
+        } else {
+            $showcaseProducts = Product::with(['category', 'images'])
+                ->where('is_active', true)
+                ->orderBy('sort_order', 'asc')
+                ->orderBy('id', 'asc')
+                ->take(8)
+                ->get();
+        }
+
+        return view('about', compact('showcaseProducts'));
     }
 
     public function contact()
