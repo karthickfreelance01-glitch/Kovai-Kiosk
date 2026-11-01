@@ -205,3 +205,4 @@ dropArea.addEventListener('drop', (e) => {
 });
 </script>
 @endsection
+

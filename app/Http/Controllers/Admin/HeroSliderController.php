@@ -164,3 +164,4 @@ class HeroSliderController extends Controller
         return back()->with('success', "Slide #{$hero_slider->id} has been {$status} successfully!");
     }
 }
+
