@@ -39,7 +39,7 @@ class ProjectController extends Controller
 
         DB::transaction(function () use ($request) {
             $data = $request->except(['images', '_token']);
-            $data['slug'] = Str::slug($request->title);
+            $data['slug'] = Project::generateUniqueSlug($request->title);
             $project = Project::create($data);
 
             if ($request->hasFile('images')) {

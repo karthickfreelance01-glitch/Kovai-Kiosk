@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasUniqueSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUniqueSlug;
 
     protected $fillable = [
         'name', 'slug', 'description', 'image', 'icon',
@@ -19,16 +20,6 @@ class Category extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($category) {
-            if (empty($category->slug)) {
-                $category->slug = Str::slug($category->name);
-            }
-        });
-    }
 
     public function products()
     {

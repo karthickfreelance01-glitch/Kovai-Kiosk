@@ -36,7 +36,7 @@ class CategoryController extends Controller
         ]);
 
         $data = $request->except('image');
-        $data['slug'] = $data['slug'] ?? Str::slug($request->name);
+        $data['slug'] = !empty($data['slug']) ? Str::slug($data['slug']) : Category::generateUniqueSlug($request->name);
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('categories', 'public');

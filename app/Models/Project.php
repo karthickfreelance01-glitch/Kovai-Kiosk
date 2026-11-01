@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasUniqueSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -9,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUniqueSlug;
 
     protected $fillable = [
         'category_id', 'title', 'slug', 'description', 'client_name',
@@ -22,16 +23,6 @@ class Project extends Model
         'is_active' => 'boolean',
         'completed_date' => 'date',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($project) {
-            if (empty($project->slug)) {
-                $project->slug = Str::slug($project->title);
-            }
-        });
-    }
 
     public function category()
     {

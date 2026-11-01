@@ -56,7 +56,7 @@ class ProductController extends Controller
 
         DB::transaction(function () use ($request) {
             $data = $request->except(['images', 'spec_keys', 'spec_values', '_token']);
-            $data['slug'] = Str::slug($request->name);
+            $data['slug'] = Product::generateUniqueSlug($request->name);
             $data['features'] = $request->features ? json_decode($request->features, true) : null;
 
             $product = Product::create($data);
