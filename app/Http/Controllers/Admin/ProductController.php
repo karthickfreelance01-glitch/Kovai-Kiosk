@@ -40,6 +40,98 @@ class ProductController extends Controller
         return view('admin.products.create', compact('categories'));
     }
 
+    public function bulkCreate()
+    {
+        $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
+        $products = Product::where('is_active', true)->orderBy('name')->get(['id', 'name', 'category_id']);
+        return view('admin.products.bulk-upload', compact('categories', 'products'));
+    }
+
+    public function bulkUploadItem(Request $request)
+    {
+        $request->validate([
+            'image'         => 'required|image|mimes:jpg,jpeg,png,webp,svg|max:8192',
+            'category_id'   => 'required|exists:categories,id',
+            'mode'          => 'required|in:individual_products,single_gallery',
+            'product_id'    => 'nullable|required_if:mode,single_gallery|exists:products,id',
+            'base_name'     => 'nullable|string|max:255',
+            'naming_mode'   => 'nullable|in:base_name,filename',
+            'description'   => 'nullable|string',
+            'is_active'     => 'nullable|boolean',
+        ]);
+
+        $file = $request->file('image');
+        $path = $file->store('products', 'public');
+
+        if ($request->mode === 'single_gallery') {
+            $product = Product::findOrFail($request->product_id);
+            $hasPrimary = !empty($product->primary_image) || $product->images()->where('is_primary', true)->exists();
+            $maxOrder = $product->images()->max('sort_order') ?? -1;
+
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image_path' => $path,
+                'is_primary' => !$hasPrimary,
+                'sort_order' => $maxOrder + 1,
+            ]);
+
+            if (!$hasPrimary) {
+                $product->update(['primary_image' => $path]);
+            }
+
+            return response()->json([
+                'success'      => true,
+                'mode'         => 'single_gallery',
+                'product_id'   => $product->id,
+                'product_name' => $product->name,
+                'image_url'    => asset('storage/' . $path),
+            ]);
+        }
+
+        // Mode: individual_products (1 product created per uploaded image)
+        $category = Category::findOrFail($request->category_id);
+
+        if ($request->naming_mode === 'filename') {
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $productName = ucwords(str_replace(['-', '_', '.'], ' ', $originalName));
+            if (empty(trim($productName))) {
+                $productName = $request->filled('base_name') ? $request->base_name : $category->name;
+            }
+        } else {
+            $productName = $request->filled('base_name') ? $request->base_name : $category->name;
+        }
+
+        $slug = Product::generateUniqueSlug($productName);
+        $maxOrder = Product::where('category_id', $category->id)->max('sort_order') ?? 0;
+
+        $product = Product::create([
+            'category_id'       => $category->id,
+            'name'              => $productName,
+            'slug'              => $slug,
+            'primary_image'     => $path,
+            'short_description' => $request->description,
+            'description'       => $request->description,
+            'is_active'         => $request->boolean('is_active', true),
+            'sort_order'        => $maxOrder + 1,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $product->id,
+            'image_path' => $path,
+            'is_primary' => true,
+            'sort_order' => 0,
+        ]);
+
+        return response()->json([
+            'success'      => true,
+            'mode'         => 'individual_products',
+            'product_id'   => $product->id,
+            'product_name' => $product->name,
+            'slug'         => $product->slug,
+            'image_url'    => asset('storage/' . $path),
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

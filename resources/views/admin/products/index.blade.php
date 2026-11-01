@@ -8,10 +8,16 @@
         <h1 class="page-head-title">Manufacturing Products</h1>
         <p class="page-head-sub">Manage kiosks, mobile push carts, and custom EV units in your master catalogue.</p>
     </div>
-    <a href="{{ route('admin.products.create') }}" class="btn-admin btn-admin-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Add New Product
-    </a>
+    <div style="display:flex;gap:10px;align-items:center">
+        <a href="{{ route('admin.products.bulk-create') }}" class="btn-admin btn-admin-outline" title="Upload 50+ images in one click">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            ⚡ Bulk Upload Photos
+        </a>
+        <a href="{{ route('admin.products.create') }}" class="btn-admin btn-admin-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add New Product
+        </a>
+    </div>
 </div>
 
 <!-- Filter Bar -->

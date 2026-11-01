@@ -59,6 +59,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('/categories/{category}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggle-status');
 
     // Products
+    Route::get('/products/bulk-upload', [AdminProductController::class, 'bulkCreate'])->name('products.bulk-create');
+    Route::post('/products/bulk-upload', [AdminProductController::class, 'bulkUploadItem'])->name('products.bulk-upload-item');
     Route::resource('products', AdminProductController::class);
     Route::post('/products/{product}/toggle-status', [AdminProductController::class, 'toggleStatus'])->name('products.toggle-status');
     Route::delete('/products/images/{image}', [AdminProductController::class, 'deleteImage'])->name('products.images.delete');
