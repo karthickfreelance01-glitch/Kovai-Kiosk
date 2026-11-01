@@ -48,7 +48,7 @@
                 </div>
 
                 <!-- Live Selection Preview -->
-                <div id="product-selection-preview" style="display:none;background:rgba(255,255,255,0.03);border:1px solid var(--admin-border);border-radius:10px;padding:12px;margin-bottom:16px">
+                <div id="product-selection-preview" style="display:none;background:var(--admin-bg);border:1px solid var(--admin-border);border-radius:10px;padding:12px;margin-bottom:16px">
                     <div style="display:flex;gap:12px;align-items:center">
                         <img id="preview-img" src="" alt="Product Preview" style="width:60px;height:50px;object-fit:cover;border-radius:6px;border:1px solid var(--admin-border)">
                         <div>
@@ -119,7 +119,7 @@
                             @php
                                 $imgUrl = optional($item->product)->primary_image_url;
                             @endphp
-                            <div style="width:70px;height:50px;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:#12141c">
+                            <div style="width:70px;height:50px;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg)">
                                 @if($imgUrl)
                                     <img src="{{ $imgUrl }}" alt="{{ optional($item->product)->name }}" style="width:100%;height:100%;object-fit:cover" onerror="this.onerror=null;this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:var(--admin-muted);font-size:10px\'>No Image</div>'">
                                 @else
@@ -139,13 +139,13 @@
                             @php
                                 $catName = optional($item->product->category)->name;
                                 $catColors = [
-                                    'Smart Kiosk' => ['bg' => 'rgba(59,130,246,0.15)', 'color' => '#93C5FD'],
-                                    'Push Cart'   => ['bg' => 'rgba(245,158,11,0.15)', 'color' => '#FCD34D'],
-                                    'EV Vehicles' => ['bg' => 'rgba(16,185,129,0.15)', 'color' => '#6EE7B7'],
+                                    'Smart Kiosk' => ['bg' => 'rgba(37,99,235,0.1)', 'color' => '#1D4ED8'],
+                                    'Push Cart'   => ['bg' => 'rgba(217,119,6,0.1)', 'color' => '#B45309'],
+                                    'EV Vehicles' => ['bg' => 'rgba(5,150,105,0.1)', 'color' => '#047857'],
                                 ];
-                                $style = $catColors[$catName] ?? ['bg' => 'rgba(255,255,255,0.08)', 'color' => 'var(--admin-text)'];
+                                $style = $catColors[$catName] ?? ['bg' => 'rgba(100,116,139,0.1)', 'color' => 'var(--admin-text)'];
                             @endphp
-                            <span class="badge-status" style="background:{{ $style['bg'] }};color:{{ $style['color'] }}">
+                            <span class="badge-status" style="background:{{ $style['bg'] }};color:{{ $style['color'] }};border:1px solid {{ $style['color'] }}33">
                                 {{ $catName ?? 'General' }}
                             </span>
                         </td>
@@ -162,7 +162,7 @@
                             <form action="{{ route('admin.about-showcase.update', $item->id) }}" method="POST" style="display:inline-flex;align-items:center;gap:6px">
                                 @csrf
                                 @method('PUT')
-                                <input type="number" name="display_order" value="{{ $item->display_order }}" min="0" style="width:50px;padding:4px 6px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid var(--admin-border);color:var(--admin-text);font-size:0.8rem">
+                                <input type="number" name="display_order" value="{{ $item->display_order }}" min="0" style="width:50px;padding:4px 6px;border-radius:4px;background:var(--admin-card);border:1px solid var(--admin-border);color:var(--admin-text);font-size:0.8rem">
                                 <button type="submit" class="btn-admin btn-admin-outline btn-admin-sm" title="Save order" style="padding:4px 8px">
                                     ✓
                                 </button>

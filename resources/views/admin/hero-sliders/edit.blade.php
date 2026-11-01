@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- CTA Button Settings -->
-                <div class="admin-form-row" style="background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;border:1px solid var(--admin-border);margin-bottom:20px">
+                <div class="admin-form-row" style="background:var(--admin-bg);padding:16px;border-radius:8px;border:1px solid var(--admin-border);margin-bottom:20px">
                     <div class="admin-form-group" style="margin-bottom:0">
                         <label class="admin-form-label" for="slider-btn-text">Button CTA Text (Optional)</label>
                         <input type="text" id="slider-btn-text" name="button_text" class="admin-form-control" value="{{ old('button_text', $slider->button_text) }}" placeholder="e.g. Explore Smart Kiosks">
@@ -93,9 +93,9 @@
                     
                     <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;margin-bottom:12px">
                         @if($slider->image_url)
-                        <div style="background:rgba(255,255,255,0.03);padding:10px;border-radius:10px;border:1px solid var(--admin-border);text-align:center">
+                        <div style="background:var(--admin-bg);padding:10px;border-radius:10px;border:1px solid var(--admin-border);text-align:center">
                             <div style="font-size:0.75rem;color:var(--admin-gold);font-weight:600;margin-bottom:6px">Current Saved Image</div>
-                            <img src="{{ $slider->image_url }}" alt="{{ $slider->title }}" style="max-height:160px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);object-fit:cover">
+                            <img src="{{ $slider->image_url }}" alt="{{ $slider->title }}" style="max-height:160px;border-radius:8px;border:1px solid var(--admin-border);object-fit:cover">
                         </div>
                         @endif
 

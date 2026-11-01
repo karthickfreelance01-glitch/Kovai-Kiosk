@@ -45,7 +45,7 @@
                 @forelse($sliders as $slider)
                 <tr>
                     <td>
-                        <div style="position:relative;width:76px;height:52px;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:#12141c">
+                        <div style="position:relative;width:76px;height:52px;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg)">
                             @if($slider->image_url)
                                 <img src="{{ $slider->image_url }}" alt="{{ $slider->title }}" style="width:100%;height:100%;object-fit:cover" onerror="this.onerror=null;this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:var(--admin-muted);font-size:10px\'>No Image</div>'">
                             @else
@@ -68,14 +68,14 @@
                     <td>
                         @php
                             $catColors = [
-                                'Smart Kiosk' => ['bg' => 'rgba(59,130,246,0.15)', 'color' => '#93C5FD'],
-                                'Push Cart'   => ['bg' => 'rgba(245,158,11,0.15)', 'color' => '#FCD34D'],
-                                'EV Vehicles' => ['bg' => 'rgba(16,185,129,0.15)', 'color' => '#6EE7B7'],
+                                'Smart Kiosk' => ['bg' => 'rgba(37,99,235,0.1)', 'color' => '#1D4ED8'],
+                                'Push Cart'   => ['bg' => 'rgba(217,119,6,0.1)', 'color' => '#B45309'],
+                                'EV Vehicles' => ['bg' => 'rgba(5,150,105,0.1)', 'color' => '#047857'],
                             ];
-                            $style = $catColors[$slider->category] ?? ['bg' => 'rgba(255,255,255,0.08)', 'color' => 'var(--admin-text)'];
+                            $style = $catColors[$slider->category] ?? ['bg' => 'rgba(100,116,139,0.1)', 'color' => 'var(--admin-text)'];
                         @endphp
                         @if($slider->category)
-                            <span class="badge-status" style="background:{{ $style['bg'] }};color:{{ $style['color'] }};border:1px solid rgba(255,255,255,0.05)">
+                            <span class="badge-status" style="background:{{ $style['bg'] }};color:{{ $style['color'] }};border:1px solid {{ $style['color'] }}33">
                                 {{ $slider->category }}
                             </span>
                         @else

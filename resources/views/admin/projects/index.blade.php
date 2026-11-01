@@ -36,7 +36,7 @@
                 @forelse($projects as $project)
                 <tr>
                     <td>
-                        <div style="width:52px;height:44px;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center">
+                        <div style="width:52px;height:44px;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg);display:flex;align-items:center;justify-content:center">
                             @if($project->has_image)
                                 <img src="{{ $project->primary_image_url }}" alt="{{ $project->title }}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';if(this.nextElementSibling){this.nextElementSibling.style.display='block';}">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--admin-muted);display:none"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>

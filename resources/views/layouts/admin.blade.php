@@ -9,15 +9,52 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <script>
+    // Immediately apply saved or default light theme to avoid flash
+    (function() {
+        const savedTheme = localStorage.getItem('kovai_admin_theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+    })();
+    </script>
+
     <style>
     :root {
+        /* Premium Light / White Theme (Default) */
+        --admin-bg: #F8FAFC;
+        --admin-sidebar: #FFFFFF;
+        --admin-sidebar-hover: #F1F5F9;
+        --admin-card: #FFFFFF;
+        --admin-card-hover: #F8FAFC;
+        --admin-border: #E2E8F0;
+        --admin-text: #0F172A;
+        --admin-muted: #64748B;
+        --admin-gold: #B88E28;
+        --admin-gold-light: #C9A84C;
+        --admin-blue: #2563EB;
+        --admin-green: #059669;
+        --admin-red: #DC2626;
+        --admin-yellow: #D97706;
+        --admin-purple: #7C3AED;
+        --sidebar-width: 260px;
+        --header-height: 64px;
+        --admin-shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+        --admin-shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    [data-theme="dark"] {
+        /* Dark Theme Alternate */
         --admin-bg: #0F1117;
         --admin-sidebar: #161820;
+        --admin-sidebar-hover: rgba(255,255,255,0.05);
         --admin-card: #1E2028;
         --admin-card-hover: #252830;
-        --admin-border: rgba(255,255,255,0.07);
+        --admin-border: rgba(255,255,255,0.08);
         --admin-text: #E8E9F0;
-        --admin-muted: #6B7280;
+        --admin-muted: #94A3B8;
         --admin-gold: #C9A84C;
         --admin-gold-light: #E8C96D;
         --admin-blue: #3B82F6;
@@ -25,16 +62,17 @@
         --admin-red: #EF4444;
         --admin-yellow: #F59E0B;
         --admin-purple: #8B5CF6;
-        --sidebar-width: 260px;
-        --header-height: 64px;
+        --admin-shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+        --admin-shadow-md: 0 4px 14px rgba(0,0,0,0.4);
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--admin-bg); color: var(--admin-text); }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; }
 
     /* Layout */
-    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-layout { display: flex; min-height: 100vh; background: var(--admin-bg); }
 
     /* Sidebar */
     .admin-sidebar {
@@ -42,7 +80,7 @@
         border-right: 1px solid var(--admin-border);
         position: fixed; top: 0; left: 0; bottom: 0;
         z-index: 100; overflow-y: auto;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, background 0.25s, border-color 0.25s;
         display: flex; flex-direction: column;
     }
     .sidebar-header {
@@ -57,15 +95,16 @@
         width: 38px; height: 38px;
         background: linear-gradient(135deg, var(--admin-gold), #9E7B2E);
         border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 2px 6px rgba(184, 142, 40, 0.25);
     }
-    .sidebar-logo-text { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; }
+    .sidebar-logo-text { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--admin-text); }
     .sidebar-logo-sub { font-size: 0.65rem; color: var(--admin-muted); letter-spacing: 1.5px; text-transform: uppercase; }
 
     .sidebar-nav { padding: 16px 12px; flex: 1; overflow-y: auto; }
     .nav-section-label {
-        font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px;
+        font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
         text-transform: uppercase; color: var(--admin-muted);
-        padding: 12px 8px 6px; margin-top: 8px;
+        padding: 12px 8px 6px; margin-top: 8px; opacity: 0.85;
     }
     .sidebar-link {
         display: flex; align-items: center; gap: 12px;
@@ -74,8 +113,13 @@
         color: var(--admin-muted); transition: all 0.2s; margin-bottom: 2px;
     }
     .sidebar-link svg { width: 18px; height: 18px; flex-shrink: 0; }
-    .sidebar-link:hover { background: rgba(255,255,255,0.05); color: var(--admin-text); }
-    .sidebar-link.active { background: rgba(201,168,76,0.12); color: var(--admin-gold); border: 1px solid rgba(201,168,76,0.2); }
+    .sidebar-link:hover { background: var(--admin-sidebar-hover); color: var(--admin-text); }
+    .sidebar-link.active {
+        background: rgba(201,168,76,0.12);
+        color: var(--admin-gold);
+        border: 1px solid rgba(201,168,76,0.3);
+        font-weight: 600;
+    }
     .sidebar-link .badge {
         margin-left: auto; background: var(--admin-red);
         color: white; font-size: 0.65rem; font-weight: 700;
@@ -90,21 +134,24 @@
     .sidebar-user {
         display: flex; align-items: center; gap: 12px;
         padding: 10px 12px; border-radius: 8px;
-        background: rgba(255,255,255,0.03);
+        background: var(--admin-card-hover);
+        border: 1px solid var(--admin-border);
     }
     .sidebar-user-avatar {
         width: 36px; height: 36px; border-radius: 50%;
         background: linear-gradient(135deg, var(--admin-gold), #9E7B2E);
+        color: #FFFFFF;
         display: flex; align-items: center; justify-content: center;
         font-weight: 700; font-size: 0.875rem; flex-shrink: 0;
     }
-    .sidebar-user-name { font-size: 0.85rem; font-weight: 600; }
+    .sidebar-user-name { font-size: 0.85rem; font-weight: 600; color: var(--admin-text); }
     .sidebar-user-role { font-size: 0.7rem; color: var(--admin-muted); }
 
     /* Main Content */
     .admin-main {
         margin-left: var(--sidebar-width);
         flex: 1; display: flex; flex-direction: column; min-height: 100vh;
+        background: var(--admin-bg);
     }
 
     /* Top Header */
@@ -115,27 +162,30 @@
         display: flex; align-items: center; justify-content: space-between;
         padding: 0 28px;
         position: sticky; top: 0; z-index: 50;
+        transition: background 0.25s, border-color 0.25s;
     }
-    .admin-header-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; }
-    .admin-header-actions { display: flex; align-items: center; gap: 16px; }
+    .admin-header-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; color: var(--admin-text); }
+    .admin-header-actions { display: flex; align-items: center; gap: 12px; }
     .admin-header-link {
         display: flex; align-items: center; gap: 6px;
         font-size: 0.82rem; color: var(--admin-muted);
         padding: 6px 12px; border-radius: 6px;
         border: 1px solid var(--admin-border);
+        background: var(--admin-card);
         transition: all 0.2s;
+        cursor: pointer;
     }
-    .admin-header-link:hover { color: var(--admin-text); border-color: rgba(255,255,255,0.15); }
+    .admin-header-link:hover { color: var(--admin-text); border-color: var(--admin-gold); }
     .logout-form { display: inline; }
     .logout-btn {
         display: flex; align-items: center; gap: 6px;
         font-size: 0.82rem; color: var(--admin-red);
         padding: 6px 12px; border-radius: 6px;
-        border: 1px solid rgba(239,68,68,0.2);
-        background: none; cursor: pointer; font-family: 'Inter', sans-serif;
+        border: 1px solid rgba(239,68,68,0.25);
+        background: rgba(239,68,68,0.04); cursor: pointer; font-family: 'Inter', sans-serif;
         transition: all 0.2s;
     }
-    .logout-btn:hover { background: rgba(239,68,68,0.1); }
+    .logout-btn:hover { background: rgba(239,68,68,0.12); }
 
     /* Page Content */
     .admin-content { padding: 28px; flex: 1; }
@@ -145,13 +195,15 @@
         background: var(--admin-card);
         border: 1px solid var(--admin-border);
         border-radius: 12px;
+        box-shadow: var(--admin-shadow-sm);
+        transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
     }
     .admin-card-header {
         padding: 20px 24px;
         border-bottom: 1px solid var(--admin-border);
         display: flex; align-items: center; justify-content: space-between;
     }
-    .admin-card-title { font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700; }
+    .admin-card-title { font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--admin-text); }
     .admin-card-body { padding: 24px; }
 
     /* Stats Cards */
@@ -159,16 +211,17 @@
     .stat-card {
         background: var(--admin-card); border: 1px solid var(--admin-border);
         border-radius: 12px; padding: 20px 24px;
+        box-shadow: var(--admin-shadow-sm);
         display: flex; align-items: center; gap: 16px;
-        transition: border-color 0.2s;
+        transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .stat-card:hover { border-color: rgba(255,255,255,0.12); }
+    .stat-card:hover { border-color: var(--admin-gold); box-shadow: var(--admin-shadow-md); }
     .stat-icon {
         width: 48px; height: 48px; border-radius: 12px;
         display: flex; align-items: center; justify-content: center;
         flex-shrink: 0;
     }
-    .stat-num { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+    .stat-num { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 700; line-height: 1; color: var(--admin-text); }
     .stat-label { font-size: 0.78rem; color: var(--admin-muted); margin-top: 4px; }
 
     /* Buttons */
@@ -178,15 +231,15 @@
         font-family: 'Outfit', sans-serif; font-size: 0.83rem; font-weight: 600;
         transition: all 0.2s; cursor: pointer; border: 1px solid transparent;
     }
-    .btn-admin-primary { background: var(--admin-gold); color: #000; border-color: var(--admin-gold); }
+    .btn-admin-primary { background: var(--admin-gold); color: #000000; border-color: var(--admin-gold); font-weight: 700; }
     .btn-admin-primary:hover { background: var(--admin-gold-light); }
     .btn-admin-sm { padding: 5px 12px; font-size: 0.78rem; }
-    .btn-admin-outline { border-color: var(--admin-border); color: var(--admin-text); }
-    .btn-admin-outline:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
-    .btn-admin-danger { border-color: rgba(239,68,68,0.3); color: var(--admin-red); }
-    .btn-admin-danger:hover { background: rgba(239,68,68,0.1); }
+    .btn-admin-outline { border-color: var(--admin-border); color: var(--admin-text); background: var(--admin-card); }
+    .btn-admin-outline:hover { border-color: var(--admin-gold); background: var(--admin-card-hover); color: var(--admin-gold); }
+    .btn-admin-danger { border-color: rgba(220,38,38,0.3); color: var(--admin-red); background: rgba(220,38,38,0.06); }
+    .btn-admin-danger:hover { background: rgba(220,38,38,0.14); }
     .btn-admin-success { background: var(--admin-green); color: white; border-color: var(--admin-green); }
-    .btn-admin-success:hover { background: #0da371; }
+    .btn-admin-success:hover { filter: brightness(0.92); }
 
     /* Table */
     .admin-table { width: 100%; border-collapse: collapse; }
@@ -194,14 +247,15 @@
         text-align: left; padding: 12px 16px;
         font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px;
         text-transform: uppercase; color: var(--admin-muted);
+        background: var(--admin-bg);
         border-bottom: 1px solid var(--admin-border);
     }
     .admin-table td {
         padding: 14px 16px; border-bottom: 1px solid var(--admin-border);
-        font-size: 0.85rem; vertical-align: middle;
+        font-size: 0.85rem; vertical-align: middle; color: var(--admin-text);
     }
     .admin-table tr:last-child td { border-bottom: none; }
-    .admin-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+    .admin-table tbody tr:hover td { background: var(--admin-card-hover); }
 
     /* Status Badges */
     .badge-status {
@@ -209,14 +263,14 @@
         padding: 3px 10px; border-radius: 20px;
         font-size: 0.72rem; font-weight: 700; font-family: 'Outfit', sans-serif;
     }
-    .badge-new { background: rgba(59,130,246,0.15); color: #60A5FA; }
-    .badge-contacted { background: rgba(245,158,11,0.15); color: #FCD34D; }
-    .badge-follow_up { background: rgba(249,115,22,0.15); color: #FB923C; }
-    .badge-quotation_sent { background: rgba(139,92,246,0.15); color: #A78BFA; }
-    .badge-converted { background: rgba(16,185,129,0.15); color: #34D399; }
-    .badge-closed { background: rgba(107,114,128,0.15); color: #9CA3AF; }
-    .badge-active { background: rgba(16,185,129,0.15); color: #34D399; }
-    .badge-inactive { background: rgba(239,68,68,0.15); color: #FCA5A5; }
+    .badge-new { background: rgba(37,99,235,0.12); color: var(--admin-blue); border: 1px solid rgba(37,99,235,0.25); }
+    .badge-contacted { background: rgba(217,119,6,0.12); color: var(--admin-yellow); border: 1px solid rgba(217,119,6,0.25); }
+    .badge-follow_up { background: rgba(234,88,12,0.12); color: #EA580C; border: 1px solid rgba(234,88,12,0.25); }
+    .badge-quotation_sent { background: rgba(124,58,237,0.12); color: var(--admin-purple); border: 1px solid rgba(124,58,237,0.25); }
+    .badge-converted { background: rgba(5,150,105,0.12); color: var(--admin-green); border: 1px solid rgba(5,150,105,0.25); }
+    .badge-closed { background: rgba(100,116,139,0.12); color: var(--admin-muted); border: 1px solid rgba(100,116,139,0.25); }
+    .badge-active { background: rgba(5,150,105,0.12); color: var(--admin-green); border: 1px solid rgba(5,150,105,0.25); }
+    .badge-inactive { background: rgba(220,38,38,0.12); color: var(--admin-red); border: 1px solid rgba(220,38,38,0.25); }
 
     /* Form Controls */
     .admin-form-group { margin-bottom: 20px; }
@@ -227,13 +281,16 @@
     }
     .admin-form-control {
         width: 100%; padding: 10px 14px;
-        background: var(--admin-bg); border: 1px solid var(--admin-border);
+        background: var(--admin-card); border: 1px solid var(--admin-border);
         border-radius: 8px; color: var(--admin-text);
         font-family: 'Inter', sans-serif; font-size: 0.88rem;
-        transition: border-color 0.2s; outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s; outline: none;
     }
-    .admin-form-control:focus { border-color: var(--admin-gold); }
-    .admin-form-control::placeholder { color: var(--admin-muted); }
+    .admin-form-control:focus {
+        border-color: var(--admin-gold);
+        box-shadow: 0 0 0 3px rgba(184, 142, 40, 0.15);
+    }
+    .admin-form-control::placeholder { color: var(--admin-muted); opacity: 0.7; }
     textarea.admin-form-control { resize: vertical; min-height: 100px; }
     select.admin-form-control { cursor: pointer; appearance: none;
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
@@ -409,6 +466,11 @@
                 <div class="admin-header-title">@yield('page-title', 'Dashboard')</div>
             </div>
             <div class="admin-header-actions">
+                <button type="button" id="admin-theme-toggle" class="admin-header-link" aria-label="Toggle Light / Dark mode" title="Switch Theme">
+                    <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg id="theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <span id="theme-text">Dark Mode</span>
+                </button>
                 <a href="{{ route('home') }}" class="admin-header-link" target="_blank">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
                     Website
@@ -476,6 +538,38 @@ function checkSidebar() {
 }
 checkSidebar();
 window.addEventListener('resize', checkSidebar);
+
+// Theme Toggle Logic
+const themeBtn = document.getElementById('admin-theme-toggle');
+const sunIcon = document.getElementById('theme-icon-sun');
+const moonIcon = document.getElementById('theme-icon-moon');
+const themeText = document.getElementById('theme-text');
+
+function updateThemeUI(theme) {
+    if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (themeText) themeText.textContent = 'Light Mode';
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+        if (themeText) themeText.textContent = 'Dark Mode';
+    }
+}
+
+// Initial sync
+updateThemeUI(localStorage.getItem('kovai_admin_theme') || 'light');
+
+if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const nextTheme = isDark ? 'light' : 'dark';
+        localStorage.setItem('kovai_admin_theme', nextTheme);
+        updateThemeUI(nextTheme);
+    });
+}
 </script>
 @yield('scripts')
 </body>

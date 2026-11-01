@@ -85,7 +85,7 @@
             @endphp
 
             <!-- Progress Bar Stack -->
-            <div style="height:12px;border-radius:6px;overflow:hidden;background:rgba(255,255,255,0.06);display:flex;margin-bottom:24px">
+            <div style="height:12px;border-radius:6px;overflow:hidden;background:var(--admin-border);display:flex;margin-bottom:24px">
                 @foreach($statusConfig as $stKey => $stCfg)
                     @php $cnt = $enquiryByStatus[$stKey] ?? 0; $pct = ($cnt / $total) * 100; @endphp
                     @if($pct > 0)
@@ -98,7 +98,7 @@
             <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:16px">
                 @foreach($statusConfig as $stKey => $stCfg)
                     @php $cnt = $enquiryByStatus[$stKey] ?? 0; @endphp
-                    <div style="background:rgba(255,255,255,0.02);border:1px solid var(--admin-border);border-radius:8px;padding:12px 14px;border-left:3px solid {{ $stCfg['color'] }}">
+                    <div style="background:var(--admin-bg);border:1px solid var(--admin-border);border-radius:8px;padding:12px 14px;border-left:3px solid {{ $stCfg['color'] }}">
                         <div style="font-size:0.75rem;color:var(--admin-muted)">{{ $stCfg['label'] }}</div>
                         <div style="font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:700;color:{{ $stCfg['color'] }};margin-top:4px">
                             {{ $cnt }}

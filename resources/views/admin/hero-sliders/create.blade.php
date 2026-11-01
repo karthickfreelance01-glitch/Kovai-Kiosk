@@ -66,7 +66,7 @@
                 </div>
 
                 <!-- CTA Button Settings -->
-                <div class="admin-form-row" style="background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;border:1px solid var(--admin-border);margin-bottom:20px">
+                <div class="admin-form-row" style="background:var(--admin-bg);padding:16px;border-radius:8px;border:1px solid var(--admin-border);margin-bottom:20px">
                     <div class="admin-form-group" style="margin-bottom:0">
                         <label class="admin-form-label" for="slider-btn-text">Button CTA Text (Optional)</label>
                         <input type="text" id="slider-btn-text" name="button_text" class="admin-form-control" value="{{ old('button_text', 'Explore Models') }}" placeholder="e.g. Explore Smart Kiosks">

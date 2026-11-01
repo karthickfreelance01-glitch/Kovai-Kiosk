@@ -57,7 +57,7 @@
                     <div>
                         <label class="admin-form-label">Primary Header Logo</label>
                         @if(\App\Models\WebsiteSetting::get('logo'))
-                            <div style="padding:10px;background:#000;border-radius:6px;margin-bottom:8px;text-align:center">
+                            <div style="padding:10px;background:var(--admin-bg);border:1px solid var(--admin-border);border-radius:6px;margin-bottom:8px;text-align:center">
                                 <img src="{{ asset('storage/' . \App\Models\WebsiteSetting::get('logo')) }}" alt="Logo" style="max-height:40px">
                             </div>
                         @endif
@@ -68,7 +68,7 @@
                     <div>
                         <label class="admin-form-label">Footer Logo</label>
                         @if(\App\Models\WebsiteSetting::get('footer_logo'))
-                            <div style="padding:10px;background:#000;border-radius:6px;margin-bottom:8px;text-align:center">
+                            <div style="padding:10px;background:var(--admin-bg);border:1px solid var(--admin-border);border-radius:6px;margin-bottom:8px;text-align:center">
                                 <img src="{{ asset('storage/' . \App\Models\WebsiteSetting::get('footer_logo')) }}" alt="Footer Logo" style="max-height:40px">
                             </div>
                         @endif
@@ -79,7 +79,7 @@
                     <div>
                         <label class="admin-form-label">Favicon (Icon)</label>
                         @if(\App\Models\WebsiteSetting::get('favicon'))
-                            <div style="padding:10px;background:#000;border-radius:6px;margin-bottom:8px;text-align:center">
+                            <div style="padding:10px;background:var(--admin-bg);border:1px solid var(--admin-border);border-radius:6px;margin-bottom:8px;text-align:center">
                                 <img src="{{ asset('storage/' . \App\Models\WebsiteSetting::get('favicon')) }}" alt="Favicon" style="max-height:32px">
                             </div>
                         @endif

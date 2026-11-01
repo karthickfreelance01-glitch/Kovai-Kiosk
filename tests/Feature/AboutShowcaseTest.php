@@ -42,6 +42,8 @@ class AboutShowcaseTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('About Pathy – Query Loop 3D Product Carousel');
         $response->assertSee('Add Product to Showcase');
+        $response->assertSee('--admin-bg: #F8FAFC');
+        $response->assertSee('admin-theme-toggle');
     }
 
     public function test_admin_can_add_product_to_showcase()

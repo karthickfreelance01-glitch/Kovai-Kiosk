@@ -226,7 +226,7 @@ function handleMultipleImages(input) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const card = document.createElement('div');
-                card.style = 'position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:#000';
+                card.style = 'position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg)';
                 card.innerHTML = `
                     <img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">
                     ${idx === 0 ? '<span style="position:absolute;bottom:4px;left:4px;background:var(--admin-gold);color:#000;font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:4px">Primary</span>' : ''}

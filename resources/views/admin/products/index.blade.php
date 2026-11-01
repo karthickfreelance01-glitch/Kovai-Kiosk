@@ -72,7 +72,7 @@
                 @forelse($products as $product)
                 <tr>
                     <td>
-                        <div style="width:52px;height:44px;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center">
+                        <div style="width:52px;height:44px;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg);display:flex;align-items:center;justify-content:center">
                             @if($product->primary_image)
                                 <img src="{{ $product->primary_image_url }}" alt="{{ $product->name }}" style="width:100%;height:100%;object-fit:cover">
                             @else

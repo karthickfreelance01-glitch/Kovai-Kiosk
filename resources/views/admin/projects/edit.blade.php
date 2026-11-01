@@ -70,7 +70,7 @@
                     <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:14px">
                         @foreach($project->images as $pImg)
                         @php $isPrimary = ($pImg->image_path === $project->primary_image); @endphp
-                        <div style="position:relative;border-radius:8px;overflow:hidden;border:2px solid {{ $isPrimary ? 'var(--admin-gold)' : 'var(--admin-border)' }};background:#000">
+                        <div style="position:relative;border-radius:8px;overflow:hidden;border:2px solid {{ $isPrimary ? 'var(--admin-gold)' : 'var(--admin-border)' }};background:var(--admin-bg)">
                             <div style="aspect-ratio:1;overflow:hidden">
                                 <img src="{{ $pImg->url }}" alt="Photo" style="width:100%;height:100%;object-fit:cover">
                             </div>
@@ -156,7 +156,7 @@ function previewProjImages(input) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const card = document.createElement('div');
-                card.style = 'aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:#000';
+                card.style = 'aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg)';
                 card.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`;
                 grid.appendChild(card);
             }

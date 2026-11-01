@@ -111,7 +111,7 @@ function previewProjImages(input) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const card = document.createElement('div');
-                card.style = 'aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:#000';
+                card.style = 'aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg)';
                 card.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`;
                 grid.appendChild(card);
             }

@@ -90,7 +90,7 @@
                 <h2 class="admin-card-title">Enquiry Scope & Specifications</h2>
             </div>
             <div class="admin-card-body">
-                <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;border:1px solid var(--admin-border);margin-bottom:20px">
+                <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;background:var(--admin-bg);padding:16px;border-radius:8px;border:1px solid var(--admin-border);margin-bottom:20px">
                     <div>
                         <div style="font-size:0.72rem;color:var(--admin-muted);text-transform:uppercase;letter-spacing:1px;font-weight:700">Target Category</div>
                         <div style="font-size:1rem;font-weight:600;color:var(--admin-gold);margin-top:4px">
@@ -122,7 +122,7 @@
 
                 <div style="margin-top:16px">
                     <div style="font-size:0.78rem;color:var(--admin-muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px">Client Detailed Message</div>
-                    <div style="background:rgba(0,0,0,0.3);border:1px solid var(--admin-border);border-radius:8px;padding:16px 20px;font-size:0.92rem;line-height:1.7;white-space:pre-wrap;color:var(--admin-text)">
+                    <div style="background:var(--admin-bg);border:1px solid var(--admin-border);border-radius:8px;padding:16px 20px;font-size:0.92rem;line-height:1.7;white-space:pre-wrap;color:var(--admin-text)">
                         {{ $enquiry->message ?? 'No specific message entered by client.' }}
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                 <!-- Notes Timeline -->
                 <div style="display:flex;flex-direction:column;gap:12px">
                     @forelse($enquiry->notes as $note)
-                    <div style="background:rgba(255,255,255,0.02);border:1px solid var(--admin-border);border-left:3px solid var(--admin-gold);border-radius:6px;padding:12px 16px">
+                    <div style="background:var(--admin-bg);border:1px solid var(--admin-border);border-left:3px solid var(--admin-gold);border-radius:6px;padding:12px 16px">
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
                             <span style="font-weight:600;font-size:0.85rem;color:var(--admin-text)">
                                 {{ optional($note->user)->name ?? 'Team Member' }}
@@ -175,7 +175,7 @@
                                 {{ $note->created_at->format('d M Y, h:i A') }} ({{ $note->created_at->diffForHumans() }})
                             </span>
                         </div>
-                        <div style="font-size:0.88rem;color:rgba(255,255,255,0.85);line-height:1.6">
+                        <div style="font-size:0.88rem;color:var(--admin-text);line-height:1.6">
                             {{ $note->note }}
                         </div>
                     </div>

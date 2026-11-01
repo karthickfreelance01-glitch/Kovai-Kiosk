@@ -65,7 +65,7 @@
                     @if($product->images->count() > 0)
                     <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:16px;margin-bottom:20px">
                         @foreach($product->images as $img)
-                        <div style="position:relative;border-radius:10px;overflow:hidden;border:2px solid {{ $img->is_primary ? 'var(--admin-gold)' : 'var(--admin-border)' }};background:#000">
+                        <div style="position:relative;border-radius:10px;overflow:hidden;border:2px solid {{ $img->is_primary ? 'var(--admin-gold)' : 'var(--admin-border)' }};background:var(--admin-bg)">
                             <div style="aspect-ratio:1;overflow:hidden">
                                 <img src="{{ $img->url }}" alt="Product Image" style="width:100%;height:100%;object-fit:cover">
                             </div>
@@ -281,7 +281,7 @@ function handleMultipleImages(input) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const card = document.createElement('div');
-                card.style = 'position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:#000';
+                card.style = 'position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--admin-border);background:var(--admin-bg)';
                 card.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`;
                 grid.appendChild(card);
             }

@@ -40,7 +40,7 @@
                         @if($category->image)
                             <img src="{{ $category->image_url }}" alt="{{ $category->name }}" style="width:50px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--admin-border)">
                         @else
-                            <div style="width:50px;height:40px;background:rgba(255,255,255,0.05);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--admin-muted)">
+                            <div style="width:50px;height:40px;background:var(--admin-bg);border:1px solid var(--admin-border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--admin-muted)">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
                             </div>
                         @endif
