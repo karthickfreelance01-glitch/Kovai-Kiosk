@@ -74,6 +74,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Projects
     Route::resource('projects', ProjectController::class);
+    Route::delete('/projects/images/{image}', [ProjectController::class, 'deleteImage'])->name('projects.images.delete');
+    Route::post('/projects/images/{image}/set-primary', [ProjectController::class, 'setPrimaryImage'])->name('projects.images.set-primary');
 
     // Hero Sliders (Website Management)
     Route::resource('hero-sliders', HeroSliderController::class);

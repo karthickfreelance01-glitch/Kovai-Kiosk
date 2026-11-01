@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectImage extends Model
 {
@@ -18,6 +19,9 @@ class ProjectImage extends Model
 
     public function getUrlAttribute()
     {
-        return asset('storage/' . $this->image_path);
+        if (str_starts_with($this->image_path, 'http://') || str_starts_with($this->image_path, 'https://')) {
+            return $this->image_path;
+        }
+        return asset('storage/' . ltrim($this->image_path, '/'));
     }
 }

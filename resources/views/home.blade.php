@@ -1303,8 +1303,11 @@
         <div class="projects-gallery">
             @foreach($projects->take(6) as $project)
             <div class="project-item {{ $loop->index === 0 ? 'wide' : '' }}" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
-                @if($project->primary_image)
-                    <img src="{{ $project->primary_image_url }}" alt="{{ $project->title }}" loading="lazy">
+                @if($project->has_image)
+                    <img src="{{ $project->primary_image_url }}" alt="{{ $project->title }}" loading="lazy" onerror="this.style.display='none';if(this.nextElementSibling){this.nextElementSibling.style.display='flex';}">
+                    <div class="project-item-placeholder" style="display:none">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
                 @else
                     <div class="project-item-placeholder">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>

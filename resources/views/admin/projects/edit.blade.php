@@ -65,12 +65,33 @@
 
                 <!-- Existing Images -->
                 @if($project->images->count() > 0)
-                <div style="margin-bottom:20px">
+                <div style="margin-bottom:24px">
                     <label class="admin-form-label">Current Photos ({{ $project->images->count() }})</label>
-                    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(110px, 1fr));gap:12px">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:14px">
                         @foreach($project->images as $pImg)
-                        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--admin-border);background:#000">
-                            <img src="{{ $pImg->url }}" alt="Photo" style="width:100%;height:100%;object-fit:cover">
+                        @php $isPrimary = ($pImg->image_path === $project->primary_image); @endphp
+                        <div style="position:relative;border-radius:8px;overflow:hidden;border:2px solid {{ $isPrimary ? 'var(--admin-gold)' : 'var(--admin-border)' }};background:#000">
+                            <div style="aspect-ratio:1;overflow:hidden">
+                                <img src="{{ $pImg->url }}" alt="Photo" style="width:100%;height:100%;object-fit:cover">
+                            </div>
+                            @if($isPrimary)
+                                <div style="position:absolute;top:6px;left:6px;background:var(--admin-gold);color:#000;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:4px;box-shadow:0 2px 4px rgba(0,0,0,0.3)">
+                                    Primary
+                                </div>
+                            @endif
+                            <div style="padding:6px 8px;background:var(--admin-sidebar);display:flex;justify-content:space-between;align-items:center;gap:4px">
+                                @if(!$isPrimary)
+                                    <button type="button" onclick="document.getElementById('set-primary-form-{{ $pImg->id }}').submit()" class="btn-admin btn-admin-outline btn-admin-sm" style="font-size:0.7rem;padding:3px 6px" title="Set as primary photo">
+                                        Make Main
+                                    </button>
+                                @else
+                                    <span style="font-size:0.7rem;color:var(--admin-gold);font-weight:600">Main Photo</span>
+                                @endif
+
+                                <button type="button" onclick="if(confirm('Delete this photo?')) document.getElementById('delete-img-form-{{ $pImg->id }}').submit()" class="btn-admin btn-admin-danger btn-admin-sm" style="padding:3px 8px;font-size:0.75rem" title="Delete photo">
+                                    &times;
+                                </button>
+                            </div>
                         </div>
                         @endforeach
                     </div>
@@ -115,6 +136,16 @@
         </div>
     </div>
 </div>
+
+@foreach($project->images as $pImg)
+    <form id="set-primary-form-{{ $pImg->id }}" action="{{ route('admin.projects.images.set-primary', $pImg->id) }}" method="POST" style="display:none">
+        @csrf
+    </form>
+    <form id="delete-img-form-{{ $pImg->id }}" action="{{ route('admin.projects.images.delete', $pImg->id) }}" method="POST" style="display:none">
+        @csrf
+        @method('DELETE')
+    </form>
+@endforeach
 
 <script>
 function previewProjImages(input) {

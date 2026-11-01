@@ -85,6 +85,7 @@ class ProjectController extends Controller
 
             if ($request->hasFile('images')) {
                 $maxOrder = $project->images()->max('sort_order') ?? -1;
+                $hasPrimary = !empty($project->primary_image);
                 foreach ($request->file('images') as $index => $image) {
                     $path = $image->store('projects', 'public');
                     ProjectImage::create([
@@ -92,12 +93,40 @@ class ProjectController extends Controller
                         'image_path' => $path,
                         'sort_order' => $maxOrder + $index + 1,
                     ]);
+                    if (!$hasPrimary && $index === 0) {
+                        $project->update(['primary_image' => $path]);
+                        $hasPrimary = true;
+                    }
                 }
             }
         });
 
         return redirect()->route('admin.projects.index')
             ->with('success', 'Project updated successfully!');
+    }
+
+    public function deleteImage(ProjectImage $image)
+    {
+        $project = $image->project;
+        $wasPrimary = ($project->primary_image === $image->image_path);
+
+        Storage::disk('public')->delete($image->image_path);
+        $image->delete();
+
+        if ($wasPrimary) {
+            $next = $project->images()->first();
+            $project->update(['primary_image' => $next ? $next->image_path : null]);
+        }
+
+        return back()->with('success', 'Photo deleted successfully.');
+    }
+
+    public function setPrimaryImage(ProjectImage $image)
+    {
+        $project = $image->project;
+        $project->update(['primary_image' => $image->image_path]);
+
+        return back()->with('success', 'Primary photo updated.');
     }
 
     public function destroy(Project $project)

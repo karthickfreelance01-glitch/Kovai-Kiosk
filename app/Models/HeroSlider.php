@@ -50,6 +50,6 @@ class HeroSlider extends Model
             return $this->image;
         }
 
-        return Storage::disk('public')->url($this->image);
+        return asset('storage/' . ltrim($this->image, '/'));
     }
 }

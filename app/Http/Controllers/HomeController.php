@@ -34,7 +34,7 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        $projects = Project::with('category')
+        $projects = Project::with(['category', 'images'])
             ->where('is_active', true)
             ->where('is_featured', true)
             ->orderBy('sort_order')
