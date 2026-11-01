@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\HeroSlider;
 use App\Models\Product;
 use App\Models\Project;
 use App\Models\WebsiteSetting;
@@ -43,7 +44,10 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->get();
 
+        $heroSliders = HeroSlider::active()->get();
+
         return view('home', compact(
+            'heroSliders',
             'featuredCategories',
             'featuredProducts',
             'projects',

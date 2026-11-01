@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\EnquiryController as AdminEnquiryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\HeroSliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,6 +73,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Projects
     Route::resource('projects', ProjectController::class);
+
+    // Hero Sliders (Website Management)
+    Route::resource('hero-sliders', HeroSliderController::class);
+    Route::post('/hero-sliders/{hero_slider}/toggle-status', [HeroSliderController::class, 'toggleStatus'])->name('hero-sliders.toggle-status');
 
     // Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');

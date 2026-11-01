@@ -159,5 +159,8 @@ class DatabaseSeeder extends Seeder
         foreach ($projectsData as $proj) {
             Project::updateOrCreate(['slug' => Str::slug($proj['title'])], array_merge($proj, ['slug' => Str::slug($proj['title']), 'is_active' => true]));
         }
+
+        // Hero Sliders
+        $this->call(HeroSliderSeeder::class);
     }
 }

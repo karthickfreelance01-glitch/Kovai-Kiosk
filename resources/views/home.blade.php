@@ -99,55 +99,458 @@
     text-transform: uppercase; letter-spacing: 1px;
 }
 
-/* Hero Visual */
+/* Hero Visual & 3D Animated Slider */
 .hero-visual {
-    position: relative; display: flex; align-items: center; justify-content: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
 }
-.hero-image-frame {
-    position: relative; width: 100%;
+
+.hero-slider-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
 }
-.hero-image-main {
-    width: 100%; aspect-ratio: 4/5;
-    border-radius: 24px; overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-    border: 1px solid rgba(201,168,76,0.2);
+
+.hero-slider-floating {
+    position: relative;
+    width: 100%;
+    transform-style: preserve-3d;
+    animation: heroFloat3D 6.5s ease-in-out infinite;
+    transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1);
 }
-.hero-image-main img {
-    width: 100%; height: 100%; object-fit: cover;
+
+@keyframes heroFloat3D {
+    0%, 100% {
+        transform: translateY(0px) rotateY(0deg) rotateX(0deg);
+    }
+    50% {
+        transform: translateY(-12px) rotateY(-2.5deg) rotateX(1.5deg);
+    }
 }
+
+.hero-slider-glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 40px;
+    background: radial-gradient(circle at 60% 40%, rgba(201,168,76,0.22) 0%, rgba(26,46,69,0.35) 45%, transparent 75%);
+    filter: blur(24px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-slider-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #1A2E45 0%, #0D1B2A 70%, #151821 100%);
+    border: 1.5px solid rgba(201,168,76,0.32);
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.65),
+        0 0 35px rgba(201,168,76,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    z-index: 1;
+    touch-action: pan-y;
+    user-select: none;
+}
+
+/* Slides */
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.93) translateX(25px);
+    transition:
+        opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.75s;
+    overflow: hidden;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1) translateX(0);
+    z-index: 2;
+}
+
+.hero-slide.prev-slide {
+    opacity: 0;
+    transform: scale(1.04) translateX(-25px);
+    z-index: 1;
+}
+
+.hero-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1);
+    transition: transform 7s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+.hero-slide.active .hero-slide-img {
+    transform: scale(1.08);
+}
+
+.hero-slide-gradient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(13,27,42,0.05) 0%,
+        rgba(13,27,42,0.2) 40%,
+        rgba(13,27,42,0.85) 75%,
+        rgba(13,27,42,0.98) 100%
+    );
+    z-index: 2;
+}
+
+.hero-slide-flare {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(201,168,76,0.25) 0%, transparent 70%);
+    z-index: 2;
+}
+
+/* Slide Caption Content */
+.hero-slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 26px 36px;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: auto;
+}
+
+.hero-slide-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    width: fit-content;
+    background: rgba(201,168,76,0.18);
+    border: 1px solid rgba(201,168,76,0.45);
+    color: var(--gold-light);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: translateY(12px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0.2, 1) 0.15s;
+}
+
+.hero-slide.active .hero-slide-category {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hero-slide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+    transform: translateY(14px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0.2, 1) 0.25s;
+}
+
+.hero-slide.active .hero-slide-title {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hero-slide-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin: 0;
+    transform: translateY(14px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0.2, 1) 0.35s;
+}
+
+.hero-slide.active .hero-slide-subtitle {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hero-slide-desc {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.5;
+    margin: 0;
+    transform: translateY(14px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0.2, 1) 0.35s;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hero-slide.active .hero-slide-desc {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hero-slide-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 4px;
+    padding: 7px 18px;
+    border-radius: 50px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #0D1B2A;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    border: none;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(201,168,76,0.35);
+    transition: all 0.25s ease;
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1) 0.45s, opacity 0.5s ease 0.45s, background 0.25s;
+}
+
+.hero-slide.active .hero-slide-btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hero-slide-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(201,168,76,0.55);
+    background: linear-gradient(135deg, #fff, var(--gold-light));
+    color: #0D1B2A;
+}
+
+/* Navigation Buttons */
+.hero-slider-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(13,27,42,0.78);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    transition: all 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.hero-slider-prev {
+    left: 14px;
+}
+
+.hero-slider-next {
+    right: 14px;
+}
+
+.hero-slider-nav-btn:hover {
+    background: var(--gold);
+    color: #0D1B2A;
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,168,76,0.7);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Pagination Dots */
+.hero-slider-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 10;
+}
+
+.hero-slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+.hero-slider-dot.active {
+    width: 26px;
+    border-radius: 10px;
+    background: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(201,168,76,0.7);
+}
+
+/* Fallback Design */
+.hero-fallback-backdrop {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #1A2E45 0%, #0D1B2A 70%, #151821 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-fallback-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.hero-fallback-icon-wrap {
+    width: 90px;
+    height: 90px;
+    border-radius: 20px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Floating Quality Badges */
 .hero-badge {
-    position: absolute; bottom: -20px; left: -20px;
-    background: var(--white); border-radius: 16px;
-    padding: 16px 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    display: flex; gap: 14px; align-items: center;
-    min-width: 200px;
+    position: absolute;
+    bottom: -18px;
+    left: -18px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 14px 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    min-width: 190px;
+    z-index: 12;
+    animation: badgeFloat 5.5s ease-in-out infinite;
+    border: 1px solid rgba(201,168,76,0.25);
 }
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
 .hero-badge-icon {
-    width: 48px; height: 48px;
+    width: 44px;
+    height: 44px;
     background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
 }
-.hero-badge-text { font-family: 'Outfit', sans-serif; }
-.hero-badge-text strong { display: block; font-size: 1rem; font-weight: 700; color: var(--text-primary); }
-.hero-badge-text span { font-size: 0.78rem; color: var(--text-muted); }
+
+.hero-badge-text {
+    font-family: 'Outfit', sans-serif;
+}
+
+.hero-badge-text strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.hero-badge-text span {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+}
 
 .hero-floating-card {
-    position: absolute; top: 30px; right: -30px;
-    background: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 24px;
+    right: -24px;
+    background: rgba(13,27,42,0.85);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 16px; padding: 16px 20px;
-    color: var(--white); min-width: 160px;
-    animation: float 4s ease-in-out infinite;
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 16px;
+    padding: 14px 18px;
+    color: var(--white);
+    min-width: 170px;
+    z-index: 12;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+    animation: badgeFloatReverse 6.5s ease-in-out infinite;
 }
-@keyframes float {
+
+@keyframes badgeFloatReverse {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(8px); }
 }
-.hero-floating-card-label { font-family: 'Outfit', sans-serif; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 6px; }
-.hero-floating-card-val { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
-.hero-floating-card-sub { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+
+.hero-floating-card-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 4px;
+}
+
+.hero-floating-card-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.hero-floating-card-sub {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.6);
+}
 
 /* ===========================
    BRAND INTRO SECTION
@@ -457,9 +860,11 @@
    RESPONSIVE
 =========================== */
 @media (max-width: 1024px) {
-    .hero-content { grid-template-columns: 1fr; gap: 40px; }
-    .hero-visual { display: none; }
-    .hero-content { text-align: center; padding: 100px 0; }
+    .hero-content { grid-template-columns: 1fr; gap: 48px; text-align: center; padding: 100px 0 60px; }
+    .hero-visual { display: flex; justify-content: center; width: 100%; margin: 0 auto; }
+    .hero-slider-wrap { max-width: 500px; }
+    .hero-floating-card { right: -10px; top: -10px; }
+    .hero-badge { left: -10px; bottom: -12px; }
     .hero-subtitle { margin: 0 auto 44px; }
     .hero-cta { justify-content: center; }
     .hero-stats { justify-content: center; }
@@ -473,13 +878,40 @@
 }
 @media (max-width: 768px) {
     .hero { min-height: auto; }
-    .hero-content { padding: 80px 0; }
+    .hero-content { padding: 80px 0 40px; gap: 36px; }
     .hero-title { font-size: 2.2rem; }
     .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .hero-slider-viewport { aspect-ratio: 16/11; min-height: 310px; }
+    .hero-slide-title { font-size: 1.2rem; }
+    .hero-slide-subtitle { font-size: 0.76rem; }
+    .hero-slide-content { padding: 18px 20px 28px; }
+    .hero-slider-nav-btn { width: 34px; height: 34px; }
+    .hero-floating-card, .hero-badge { display: none; }
     .categories-grid { grid-template-columns: 1fr; }
     .why-grid, .process-timeline { grid-template-columns: 1fr; }
     .projects-gallery { grid-template-columns: 1fr; }
     .project-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .hero-slider-floating,
+    .hero-badge,
+    .hero-floating-card,
+    .hero-shape-1,
+    .hero-shape-2 {
+        animation: none !important;
+        transform: none !important;
+    }
+    .hero-slide,
+    .hero-slide-img,
+    .hero-slide-category,
+    .hero-slide-title,
+    .hero-slide-subtitle,
+    .hero-slide-desc,
+    .hero-slide-btn {
+        transition-duration: 0.01ms !important;
+    }
 }
 </style>
 @endsection
@@ -535,25 +967,117 @@
                 </div>
             </div>
 
-            <!-- Right: Visual (hidden on mobile) -->
+            <!-- Right: Premium Animated Hero Slider -->
             <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
-                <div class="hero-image-frame">
-                    <div class="hero-image-main">
-                        <img src="{{ asset('images/hero-kiosk.jpg') }}" alt="Premium Kiosk Manufacturing" loading="eager" onerror="this.parentElement.style.background='linear-gradient(135deg,#1A2E45,#1C1C1E)'">
-                    </div>
-                    <div class="hero-badge">
-                        <div class="hero-badge-icon">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <div class="hero-slider-wrap" id="hero-slider-container">
+                    <!-- 3D Floating Stage -->
+                    <div class="hero-slider-floating" id="hero-slider-floating">
+                        <!-- Ambient Backdrop Glow -->
+                        <div class="hero-slider-glow"></div>
+
+                        <!-- Viewport / Frame -->
+                        <div class="hero-slider-viewport" id="hero-slider-viewport" role="region" aria-label="Featured Products Slider" aria-roledescription="carousel">
+                            @if(isset($heroSliders) && $heroSliders->isNotEmpty())
+                                @foreach($heroSliders as $index => $slide)
+                                <div class="hero-slide {{ $index === 0 ? 'active' : '' }}" data-slide-index="{{ $index }}" role="group" aria-roledescription="slide" aria-label="{{ $slide->title }}">
+                                    <!-- Image with Eager Loading on first slide, Lazy on remainder -->
+                                    <img src="{{ $slide->image_url }}" alt="{{ $slide->title }}" class="hero-slide-img" {{ $index === 0 ? 'loading=eager fetchpriority=high' : 'loading=lazy' }} onerror="this.onerror=null;this.parentElement.style.background='linear-gradient(135deg,#0D1B2A,#1A2E45)'">
+
+                                    <!-- Atmospheric Overlays -->
+                                    <div class="hero-slide-gradient"></div>
+                                    <div class="hero-slide-flare"></div>
+
+                                    <!-- Slide Caption Content -->
+                                    <div class="hero-slide-content">
+                                        @if($slide->category)
+                                            <div class="hero-slide-category">
+                                                @if(stripos($slide->category, 'kiosk') !== false)
+                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                                @elseif(stripos($slide->category, 'cart') !== false)
+                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                                                @elseif(stripos($slide->category, 'ev') !== false || stripos($slide->category, 'vehicle') !== false)
+                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                                @else
+                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+                                                @endif
+                                                <span>{{ $slide->category }}</span>
+                                            </div>
+                                        @endif
+
+                                        <h3 class="hero-slide-title">{{ $slide->title }}</h3>
+
+                                        @if($slide->subtitle)
+                                            <div class="hero-slide-subtitle">{{ $slide->subtitle }}</div>
+                                        @elseif($slide->description)
+                                            <p class="hero-slide-desc">{{ Str::limit($slide->description, 90) }}</p>
+                                        @endif
+
+                                        @if($slide->button_text)
+                                            <a href="{{ $slide->button_url ?? route('products.index') }}" class="hero-slide-btn">
+                                                <span>{{ $slide->button_text }}</span>
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                                @endforeach
+
+                                <!-- Navigation Buttons -->
+                                @if($heroSliders->count() > 1)
+                                <button type="button" class="hero-slider-nav-btn hero-slider-prev" id="hero-slider-prev-btn" aria-label="Previous Slide">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                                </button>
+                                <button type="button" class="hero-slider-nav-btn hero-slider-next" id="hero-slider-next-btn" aria-label="Next Slide">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                                </button>
+
+                                <!-- Pagination Dots -->
+                                <div class="hero-slider-dots" id="hero-slider-dots" role="tablist" aria-label="Slider Pagination">
+                                    @foreach($heroSliders as $index => $slide)
+                                    <button type="button" class="hero-slider-dot {{ $index === 0 ? 'active' : '' }}" data-dot-index="{{ $index }}" role="tab" aria-selected="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Go to slide {{ $index + 1 }}"></button>
+                                    @endforeach
+                                </div>
+                                @endif
+                            @else
+                                <!-- Graceful Fallback Showcase Card if no slides exist -->
+                                <div class="hero-slide active fallback-slide">
+                                    <div class="hero-fallback-backdrop">
+                                        <div class="hero-fallback-grid"></div>
+                                        <div class="hero-fallback-icon-wrap">
+                                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><circle cx="12" cy="10" r="3"/></svg>
+                                        </div>
+                                        <div class="hero-slide-content">
+                                            <div class="hero-slide-category">
+                                                <span>Custom Manufacturing</span>
+                                            </div>
+                                            <h3 class="hero-slide-title">Precision Kiosks & Mobile Carts</h3>
+                                            <p class="hero-slide-desc">Smart interactive displays, food push carts, and eco-friendly EV commercial kiosks manufactured in Coimbatore.</p>
+                                            <a href="{{ route('products.index') }}" class="hero-slide-btn">
+                                                <span>Explore Catalogue</span>
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                        <div class="hero-badge-text">
-                            <strong>ISO Certified</strong>
-                            <span>Premium Manufacturing</span>
+
+                        <!-- Retained Floating Quality Badges -->
+                        <div class="hero-badge">
+                            <div class="hero-badge-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <div class="hero-badge-text">
+                                <strong>ISO Certified</strong>
+                                <span>Premium Manufacturing</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="hero-floating-card">
-                        <div class="hero-floating-card-label">New Enquiry</div>
-                        <div class="hero-floating-card-val">✓ Received</div>
-                        <div class="hero-floating-card-sub">24hr response guarantee</div>
+
+                        <div class="hero-floating-card">
+                            <div class="hero-floating-card-label">Engineering Vision</div>
+                            <div class="hero-floating-card-val">100% Custom</div>
+                            <div class="hero-floating-card-sub">Smart Kiosk • Push Cart • EV</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -817,4 +1341,201 @@
     </div>
 </section>
 
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sliderContainer = document.getElementById('hero-slider-container');
+    const viewport = document.getElementById('hero-slider-viewport');
+    const floatingStage = document.getElementById('hero-slider-floating');
+    if (!viewport) return;
+
+    const slides = Array.from(viewport.querySelectorAll('.hero-slide'));
+    const prevBtn = document.getElementById('hero-slider-prev-btn');
+    const nextBtn = document.getElementById('hero-slider-next-btn');
+    const dotsContainer = document.getElementById('hero-slider-dots');
+    const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.hero-slider-dot')) : [];
+
+    const totalSlides = slides.length;
+    if (totalSlides <= 1) return; // Single or fallback slide doesn't need multi-slide rotation
+
+    let currentIndex = 0;
+    let isTransitioning = false;
+    let autoSlideInterval = 5200; // ms
+    let autoSlideTimer = null;
+    let isPaused = false;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Transition to specific slide
+    function goToSlide(targetIndex, direction = 'next') {
+        if (isTransitioning || targetIndex === currentIndex) return;
+        isTransitioning = true;
+
+        const currentSlide = slides[currentIndex];
+        const targetSlide = slides[targetIndex];
+
+        // Set direction classes for smooth motion
+        slides.forEach(s => s.classList.remove('prev-slide'));
+        currentSlide.classList.add('prev-slide');
+        currentSlide.classList.remove('active');
+
+        targetSlide.classList.add('active');
+
+        // Update dots
+        if (dots.length > 0) {
+            dots.forEach((dot, idx) => {
+                const isActive = idx === targetIndex;
+                dot.classList.toggle('active', isActive);
+                dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+        }
+
+        currentIndex = targetIndex;
+
+        // Reset transition lock after animation completes
+        setTimeout(() => {
+            currentSlide.classList.remove('prev-slide');
+            isTransitioning = false;
+        }, 750);
+    }
+
+    function nextSlide() {
+        const next = (currentIndex + 1) % totalSlides;
+        goToSlide(next, 'next');
+    }
+
+    function prevSlide() {
+        const prev = (currentIndex - 1 + totalSlides) % totalSlides;
+        goToSlide(prev, 'prev');
+    }
+
+    // Auto Slide Timer
+    function startAutoSlide() {
+        if (prefersReducedMotion) return;
+        stopAutoSlide();
+        autoSlideTimer = setInterval(() => {
+            if (!isPaused) {
+                nextSlide();
+            }
+        }, autoSlideInterval);
+    }
+
+    function stopAutoSlide() {
+        if (autoSlideTimer) {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = null;
+        }
+    }
+
+    // Button event listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            nextSlide();
+            startAutoSlide(); // Reset timer on manual action
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            prevSlide();
+            startAutoSlide();
+        });
+    }
+
+    // Dot event listeners
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToSlide(index, index > currentIndex ? 'next' : 'prev');
+            startAutoSlide();
+        });
+    });
+
+    // Pause on Hover / Resume on Mouse Leave
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', () => {
+            isPaused = true;
+        });
+
+        sliderContainer.addEventListener('mouseleave', () => {
+            isPaused = false;
+        });
+    }
+
+    // Touch / Swipe Navigation for Mobile & Tablet
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        isPaused = true;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        isPaused = false;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        // Check if horizontal swipe was dominant and exceeds threshold (40px)
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+            if (deltaX < 0) {
+                // Swiped Left -> Show Next
+                nextSlide();
+            } else {
+                // Swiped Right -> Show Previous
+                prevSlide();
+            }
+            startAutoSlide();
+        }
+    }, { passive: true });
+
+    // Keyboard Navigation when slider area is in view
+    document.addEventListener('keydown', (e) => {
+        const rect = viewport.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        if (!isInViewport) return;
+
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+            startAutoSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            startAutoSlide();
+        }
+    });
+
+    // Subtle 3D Perspective Tilt on Mouse Movement (Desktop only)
+    if (!prefersReducedMotion && window.matchMedia('(min-width: 1025px)').matches && floatingStage) {
+        sliderContainer.addEventListener('mousemove', (e) => {
+            const rect = sliderContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = -((y - centerY) / centerY) * 5;
+            const rotateY = ((x - centerX) / centerX) * 6;
+
+            floatingStage.style.transform = `translateY(-6px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+        });
+
+        sliderContainer.addEventListener('mouseleave', () => {
+            floatingStage.style.transform = '';
+        });
+    }
+
+    // Start auto slide rotation
+    startAutoSlide();
+});
+</script>
 @endsection
