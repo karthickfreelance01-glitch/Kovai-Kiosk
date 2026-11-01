@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Panel') | Kovai Kiosk</title>
+    <title>@yield('title', 'Admin Panel') | Pathy Display Racks</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -32,8 +34,8 @@
         --admin-border: #E2E8F0;
         --admin-text: #0F172A;
         --admin-muted: #64748B;
-        --admin-gold: #B88E28;
-        --admin-gold-light: #C9A84C;
+        --admin-gold: #8DC63F;
+        --admin-gold-light: #76A82F;
         --admin-blue: #2563EB;
         --admin-green: #059669;
         --admin-red: #DC2626;
@@ -55,8 +57,8 @@
         --admin-border: rgba(255,255,255,0.08);
         --admin-text: #E8E9F0;
         --admin-muted: #94A3B8;
-        --admin-gold: #C9A84C;
-        --admin-gold-light: #E8C96D;
+        --admin-gold: #8DC63F;
+        --admin-gold-light: #A3D95B;
         --admin-blue: #3B82F6;
         --admin-green: #10B981;
         --admin-red: #EF4444;
@@ -93,9 +95,9 @@
     }
     .sidebar-logo-icon {
         width: 38px; height: 38px;
-        background: linear-gradient(135deg, var(--admin-gold), #9E7B2E);
+        background: var(--admin-gold);
         border-radius: 8px; display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 2px 6px rgba(184, 142, 40, 0.25);
+        box-shadow: 0 2px 6px rgba(141, 198, 63, 0.25);
     }
     .sidebar-logo-text { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--admin-text); }
     .sidebar-logo-sub { font-size: 0.65rem; color: var(--admin-muted); letter-spacing: 1.5px; text-transform: uppercase; }
@@ -115,9 +117,9 @@
     .sidebar-link svg { width: 18px; height: 18px; flex-shrink: 0; }
     .sidebar-link:hover { background: var(--admin-sidebar-hover); color: var(--admin-text); }
     .sidebar-link.active {
-        background: rgba(201,168,76,0.12);
+        background: rgba(141,198,63,0.12);
         color: var(--admin-gold);
-        border: 1px solid rgba(201,168,76,0.3);
+        border: 1px solid rgba(141,198,63,0.3);
         font-weight: 600;
     }
     .sidebar-link .badge {
@@ -139,7 +141,7 @@
     }
     .sidebar-user-avatar {
         width: 36px; height: 36px; border-radius: 50%;
-        background: linear-gradient(135deg, var(--admin-gold), #9E7B2E);
+        background: var(--admin-gold);
         color: #FFFFFF;
         display: flex; align-items: center; justify-content: center;
         font-weight: 700; font-size: 0.875rem; flex-shrink: 0;
@@ -231,7 +233,7 @@
         font-family: 'Outfit', sans-serif; font-size: 0.83rem; font-weight: 600;
         transition: all 0.2s; cursor: pointer; border: 1px solid transparent;
     }
-    .btn-admin-primary { background: var(--admin-gold); color: #000000; border-color: var(--admin-gold); font-weight: 700; }
+    .btn-admin-primary { background: var(--admin-gold); color: #FFFFFF; border-color: var(--admin-gold); font-weight: 700; }
     .btn-admin-primary:hover { background: var(--admin-gold-light); }
     .btn-admin-sm { padding: 5px 12px; font-size: 0.78rem; }
     .btn-admin-outline { border-color: var(--admin-border); color: var(--admin-text); background: var(--admin-card); }
@@ -288,7 +290,7 @@
     }
     .admin-form-control:focus {
         border-color: var(--admin-gold);
-        box-shadow: 0 0 0 3px rgba(184, 142, 40, 0.15);
+        box-shadow: 0 0 0 3px rgba(141, 198, 63, 0.18);
     }
     .admin-form-control::placeholder { color: var(--admin-muted); opacity: 0.7; }
     textarea.admin-form-control { resize: vertical; min-height: 100px; }
@@ -315,7 +317,7 @@
         border: 1px solid var(--admin-border); color: var(--admin-muted);
     }
     .admin-pagination a:hover { border-color: var(--admin-gold); color: var(--admin-gold); }
-    .admin-pagination .active { background: var(--admin-gold); color: #000; border-color: var(--admin-gold); }
+    .admin-pagination .active { background: var(--admin-gold); color: #FFFFFF; border-color: var(--admin-gold); }
 
     /* Toggle Switch */
     .toggle-switch { position: relative; display: inline-flex; align-items: center; cursor: pointer; }
@@ -381,15 +383,13 @@
     <aside class="admin-sidebar" id="admin-sidebar" role="navigation" aria-label="Admin Navigation">
         <!-- Logo -->
         <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                </div>
+            <a href="{{ route('admin.dashboard') }}" class="sidebar-logo" style="text-decoration: none;">
+                <img src="{{ asset('images/pdr-logo.png') }}" alt="Pathy Display Racks" style="height: 36px; width: auto; object-fit: contain;">
                 <div>
-                    <div class="sidebar-logo-text">Kovai Kiosk</div>
-                    <div class="sidebar-logo-sub">Admin Panel</div>
+                    <div class="sidebar-logo-text">Pathy Admin</div>
+                    <div class="sidebar-logo-sub">Display Racks</div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Nav -->

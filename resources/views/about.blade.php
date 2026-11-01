@@ -1,95 +1,186 @@
 @extends('layouts.app')
 
-@section('title', 'About Pathy | Kovai Kiosk')
-@section('meta_description', 'Learn about Kovai Kiosk — our story, vision, manufacturing expertise, and commitment to premium kiosk manufacturing in Coimbatore.')
+@section('title', 'About Pathy | Pathy Display Racks & Kovai Kiosk')
+@section('meta_description', 'Learn about Pathy Display Racks & Kovai Kiosk — our story, vision, manufacturing expertise, and commitment to precision manufacturing in Coimbatore.')
 
 @section('styles')
 <style>
 .about-hero-text { max-width: 700px; }
+
+/* Statistics Row */
 .stats-row {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 2px; background: var(--border);
-    border-radius: var(--radius); overflow: hidden;
-    margin: 60px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 50px 0 20px;
 }
 .stat-box {
-    background: var(--white); padding: 32px 24px; text-align: center;
+    background: #FFFFFF;
+    padding: 30px 22px;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+.stat-box:hover {
+    border-color: var(--brand-green);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
 }
 .stat-box-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem; font-weight: 800; color: var(--gold);
+    font-family: var(--font-heading);
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--brand-green);
     line-height: 1;
 }
-.stat-box-label { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; }
+.stat-box-label {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 10px;
+}
 
-.about-section { padding: 80px 0; }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.about-img-box { border-radius: 20px; overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--shadow-lg); background: var(--ivory-dark); }
+.about-section { padding: 85px 0; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+.about-img-box {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow-md);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+}
 .about-img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+/* Values */
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
 .value-card {
-    background: var(--ivory);
+    background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 32px 24px; text-align: center;
+    padding: 32px 24px;
+    text-align: center;
     transition: var(--transition);
+    box-shadow: var(--shadow-sm);
 }
-.value-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.value-card:hover {
+    border-color: var(--brand-green);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
 .value-icon {
-    width: 64px; height: 64px; margin: 0 auto 20px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 18px;
+    background: var(--brand-green);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
 }
-.value-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
-.value-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+.value-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--brand-grey-dark);
+    margin-bottom: 8px;
+}
+.value-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
 
+/* Infrastructure */
 .infra-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .infra-item {
-    display: flex; gap: 20px; align-items: flex-start;
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 24px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
     transition: var(--transition);
+    box-shadow: var(--shadow-sm);
 }
-.infra-item:hover { border-color: rgba(201,168,76,0.4); box-shadow: var(--shadow-sm); }
+.infra-item:hover {
+    border-color: var(--brand-green);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
 .infra-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 800; color: rgba(201,168,76,0.3);
-    line-height: 1; flex-shrink: 0; min-width: 44px;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--brand-green);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 44px;
 }
-.infra-title { font-weight: 700; margin-bottom: 6px; }
-.infra-text { font-size: 0.85rem; color: var(--text-muted); }
+.infra-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--brand-grey-dark);
+    margin-bottom: 6px;
+}
+.infra-text {
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
 
+/* Dark Manufacturing Expertise Section */
 .dark-section {
-    background: linear-gradient(160deg, var(--navy), var(--charcoal));
-    padding: 100px 0; color: white;
+    background: var(--brand-grey-dark);
+    padding: 90px 0;
+    color: #FFFFFF;
 }
-.dark-section .section-title { color: white; }
-.dark-section .section-subtitle { color: rgba(255,255,255,0.6); }
-.expertise-list { display: flex; flex-direction: column; gap: 16px; }
+.dark-section .section-title { color: #FFFFFF; }
+.dark-section .section-subtitle { color: rgba(255, 255, 255, 0.7); }
+.expertise-list { display: flex; flex-direction: column; gap: 14px; }
 .expertise-item {
-    display: flex; gap: 16px; align-items: center;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius); padding: 20px 24px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius);
+    padding: 16px 20px;
     transition: var(--transition);
 }
-.expertise-item:hover { border-color: rgba(201,168,76,0.3); background: rgba(255,255,255,0.07); }
-.expertise-check { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.expertise-text { font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500; }
-
-@media (max-width: 768px) {
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .about-grid { grid-template-columns: 1fr; }
-    .values-grid, .infra-grid { grid-template-columns: 1fr; }
+.expertise-item:hover {
+    border-color: var(--brand-green);
+    background: rgba(255, 255, 255, 0.08);
+}
+.expertise-check {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--brand-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFFFFF;
+}
+.expertise-text {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 500;
 }
 
-/* =========================================================
-   QUERY LOOP STYLE 3D OVERLAPPING PRODUCT CAROUSEL
-========================================================= */
+/* ==========================================================================
+   ABOUT 3D QUERY LOOP SHOWCASE CAROUSEL
+   ========================================================================== */
 .about-queryloop-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F4 50%, #F5F1E8 100%);
+    padding: 90px 0;
+    background: var(--bg);
     position: relative;
     overflow: hidden;
 }
@@ -97,17 +188,19 @@
 .queryloop-carousel-wrap {
     position: relative;
     width: 100%;
-    margin-top: 50px;
-    padding: 20px 0 30px;
+    margin-top: 36px;
+    user-select: none;
+    touch-action: pan-y;
 }
 
 .queryloop-stage {
     position: relative;
     width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
+    max-width: 1050px;
     height: 520px;
+    margin: 0 auto;
     perspective: 1400px;
+    transform-style: preserve-3d;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,148 +208,115 @@
 
 .queryloop-card {
     position: absolute;
-    width: 380px;
-    max-width: 86vw;
+    width: 370px;
     background: #FFFFFF;
-    border-radius: 22px;
+    border-radius: var(--radius-xl);
     overflow: hidden;
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
     transition:
-        transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
-        opacity 0.65s ease,
-        box-shadow 0.65s ease,
-        filter 0.65s ease,
-        border-color 0.65s ease;
+        transform 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+        border-color 0.3s ease;
+    cursor: pointer;
     will-change: transform, opacity;
-    user-select: none;
     display: flex;
     flex-direction: column;
 }
 
-/* Center Card - Prominent in Foreground */
 .queryloop-card.card-center {
-    transform: translateX(0) scale(1.06) translateZ(50px);
-    z-index: 10;
+    transform: translateX(0) translateZ(80px) scale(1.05);
     opacity: 1;
-    pointer-events: auto;
-    border-color: rgba(201, 168, 76, 0.5);
-    box-shadow:
-        0 25px 65px rgba(0, 0, 0, 0.16),
-        0 0 30px rgba(201, 168, 76, 0.18);
-    filter: blur(0px);
+    z-index: 20;
+    border-color: var(--brand-green);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    cursor: default;
 }
 
-/* Left Card - Partially behind center */
 .queryloop-card.card-left {
-    transform: translateX(-56%) scale(0.86) rotateY(4.5deg) translateZ(0);
-    z-index: 5;
-    opacity: 0.72;
-    pointer-events: auto;
-    cursor: pointer;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.10);
-    filter: blur(0.5px);
+    transform: translateX(-56%) translateZ(-30px) scale(0.88) rotateY(5deg);
+    opacity: 0.65;
+    z-index: 10;
 }
 
-.queryloop-card.card-left:hover {
-    opacity: 0.88;
-    transform: translateX(-54%) scale(0.88) rotateY(3deg) translateZ(10px);
-}
-
-/* Right Card - Partially behind center */
 .queryloop-card.card-right {
-    transform: translateX(56%) scale(0.86) rotateY(-4.5deg) translateZ(0);
-    z-index: 5;
-    opacity: 0.72;
-    pointer-events: auto;
-    cursor: pointer;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.10);
-    filter: blur(0.5px);
+    transform: translateX(56%) translateZ(-30px) scale(0.88) rotateY(-5deg);
+    opacity: 0.65;
+    z-index: 10;
 }
 
-.queryloop-card.card-right:hover {
-    opacity: 0.88;
-    transform: translateX(54%) scale(0.88) rotateY(-3deg) translateZ(10px);
-}
-
-/* Hidden / Offstage Cards */
 .queryloop-card.card-hidden-left {
-    transform: translateX(-120%) scale(0.7) translateZ(-50px);
-    z-index: 1;
+    transform: translateX(-110%) translateZ(-100px) scale(0.72) rotateY(10deg);
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
+    z-index: 1;
 }
 
 .queryloop-card.card-hidden-right {
-    transform: translateX(120%) scale(0.7) translateZ(-50px);
-    z-index: 1;
+    transform: translateX(110%) translateZ(-100px) scale(0.72) rotateY(-10deg);
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
+    z-index: 1;
 }
 
-/* Card Visual Header */
 .queryloop-card-media {
     position: relative;
     width: 100%;
     aspect-ratio: 16/10;
     overflow: hidden;
-    background: #1A2E45;
+    background: var(--bg-alt);
 }
 
 .queryloop-card-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    transition: transform 0.5s ease;
 }
 
 .queryloop-card.card-center:hover .queryloop-card-media img {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
 .queryloop-badge-cat {
     position: absolute;
     top: 14px;
     left: 14px;
-    background: rgba(13, 27, 42, 0.82);
+    background: rgba(45, 49, 54, 0.85);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    border-radius: 50px;
+    border: 1px solid rgba(141, 198, 63, 0.45);
+    border-radius: var(--radius-pill);
     padding: 4px 12px;
     font-size: 0.7rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     font-weight: 700;
-    color: var(--gold-light);
+    color: var(--brand-green);
     letter-spacing: 1px;
     text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     z-index: 2;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
 .queryloop-badge-custom {
     position: absolute;
     top: 14px;
     right: 14px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    background: var(--brand-green);
     color: #FFFFFF;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     padding: 4px 12px;
     font-size: 0.68rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     font-weight: 700;
     letter-spacing: 0.5px;
     z-index: 2;
-    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
 }
 
-/* Card Information Body */
 .queryloop-card-body {
-    padding: 22px 24px 26px;
+    padding: 22px 24px;
     background: #FFFFFF;
     flex: 1;
     display: flex;
@@ -264,20 +324,20 @@
 }
 
 .queryloop-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
+    font-family: var(--font-heading);
+    font-size: 1.22rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--brand-grey-dark);
     margin-bottom: 8px;
     line-height: 1.3;
 }
 
 .queryloop-card-desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
-    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -288,7 +348,7 @@
 .queryloop-card-action {
     margin-top: auto;
     padding-top: 14px;
-    border-top: 1px solid rgba(0,0,0,0.06);
+    border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -298,19 +358,20 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.82rem;
+    font-family: var(--font-heading);
+    font-size: 0.84rem;
     font-weight: 600;
-    color: var(--navy);
+    color: var(--brand-grey-dark);
     transition: var(--transition);
 }
 
 .queryloop-card.card-center .queryloop-card-btn {
-    color: var(--gold-dark);
+    color: var(--brand-green-dark);
+    font-weight: 700;
 }
 
 .queryloop-card.card-center:hover .queryloop-card-btn {
-    color: var(--gold);
+    color: var(--brand-green);
     transform: translateX(4px);
 }
 
@@ -318,16 +379,16 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: rgba(201, 168, 76, 0.12);
+    background: var(--brand-green-light);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--gold-dark);
-    transition: all 0.25s ease;
+    color: var(--brand-green-dark);
+    transition: var(--transition);
 }
 
 .queryloop-card.card-center:hover .queryloop-card-arrow {
-    background: var(--gold);
+    background: var(--brand-green);
     color: #FFFFFF;
     transform: scale(1.1);
 }
@@ -337,38 +398,31 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: #FFFFFF;
-    border: 1px solid rgba(201, 168, 76, 0.35);
-    color: var(--text-primary);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--border);
+    color: var(--brand-grey-dark);
+    box-shadow: var(--shadow-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 25;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: var(--transition);
 }
 
-.queryloop-prev {
-    left: calc(50% - 470px);
-}
-
-.queryloop-next {
-    right: calc(50% - 470px);
-}
+.queryloop-prev { left: calc(50% - 470px); }
+.queryloop-next { right: calc(50% - 470px); }
 
 .queryloop-nav-btn:hover {
-    background: var(--gold);
+    background: var(--brand-green);
     color: #FFFFFF;
-    border-color: var(--gold);
-    box-shadow: 0 10px 30px rgba(201, 168, 76, 0.45);
+    border-color: var(--brand-green);
     transform: translateY(-50%) scale(1.08);
 }
 
-/* Pagination Dots */
 .queryloop-dots {
     display: flex;
     align-items: center;
@@ -383,46 +437,44 @@
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.18);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     padding: 0;
     border: none;
 }
 
 .queryloop-dot.active {
     width: 24px;
-    border-radius: 10px;
-    background: var(--gold);
-    box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+    border-radius: var(--radius-pill);
+    background: var(--brand-green);
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
     .queryloop-stage { max-width: 900px; height: 500px; }
-    .queryloop-card { width: 330px; }
-    .queryloop-card.card-left { transform: translateX(-48%) scale(0.86) rotateY(4deg); }
-    .queryloop-card.card-right { transform: translateX(48%) scale(0.86) rotateY(-4deg); }
+    .queryloop-card { width: 320px; }
+    .queryloop-card.card-left { transform: translateX(-46%) scale(0.86); }
+    .queryloop-card.card-right { transform: translateX(46%) scale(0.86); }
     .queryloop-prev { left: 16px; }
     .queryloop-next { right: 16px; }
 }
 
 @media (max-width: 768px) {
-    .about-queryloop-section { padding: 70px 0; }
+    .about-section { padding: 60px 0; }
+    .stats-row { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .infra-grid { grid-template-columns: 1fr; }
     .queryloop-stage { height: 480px; }
-    .queryloop-card { width: 300px; max-width: 84vw; }
+    .queryloop-card { width: 290px; max-width: 86vw; }
     .queryloop-card.card-center { transform: translateX(0) scale(1.02); }
-    .queryloop-card.card-left { transform: translateX(-70%) scale(0.82) rotateY(3deg); opacity: 0.25; pointer-events: none; }
-    .queryloop-card.card-right { transform: translateX(70%) scale(0.82) rotateY(-3deg); opacity: 0.25; pointer-events: none; }
+    .queryloop-card.card-left { transform: translateX(-68%) scale(0.82); opacity: 0.25; pointer-events: none; }
+    .queryloop-card.card-right { transform: translateX(68%) scale(0.82); opacity: 0.25; pointer-events: none; }
     .queryloop-card-title { font-size: 1.15rem; }
-    .queryloop-card-desc { font-size: 0.78rem; min-height: 36px; }
-    .queryloop-nav-btn { width: 40px; height: 40px; }
+    .queryloop-nav-btn { width: 38px; height: 38px; }
     .queryloop-prev { left: 8px; }
     .queryloop-next { right: 8px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .queryloop-card {
-        transition-duration: 0.01ms !important;
-    }
 }
 </style>
 @endsection
@@ -439,37 +491,37 @@
                 <span>About Pathy</span>
             </nav>
             <h1>About Pathy</h1>
-            <p>The story of craftsmanship, passion, and a relentless pursuit of excellence in kiosk manufacturing.</p>
+            <p>The story of craftsmanship, passion, and a relentless pursuit of excellence in display rack and kiosk manufacturing.</p>
         </div>
     </div>
 </section>
 
-<!-- About Company -->
-<section class="about-section" style="background:var(--white)">
+<!-- About Company (White #FFFFFF) -->
+<section class="about-section" style="background:var(--bg)">
     <div class="container">
         <div class="about-grid">
             <div data-aos="fade-right">
                 <div class="section-label">Our Company</div>
-                <h2 class="section-title">More Than Just Manufacturers</h2>
+                <h2 class="section-title">More Than Just <span class="highlight">Manufacturers</span></h2>
                 <p style="color:var(--text-secondary);margin-bottom:16px;line-height:1.8">
                     Kovai Kiosk was founded with a singular vision: to create commercial spaces that inspire customers, empower businesses, and stand the test of time. Based in Coimbatore — the manufacturing capital of Tamil Nadu — we have grown from a small workshop into one of South India's most trusted kiosk manufacturing companies.
                 </p>
                 <p style="color:var(--text-secondary);line-height:1.8">
                     Our founder, Pathy, started this journey over 15 years ago with a simple belief — that every business, big or small, deserves a beautiful, functional and durable commercial space. Today, we have delivered over 500 projects across India, serving clients from leading retail chains, food and beverage brands, hotels, malls and individual entrepreneurs.
                 </p>
-                <div style="margin-top:32px;display:flex;gap:20px;flex-wrap:wrap">
+                <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap">
                     <a href="{{ route('enquiry.create') }}" class="btn btn-primary" id="about-quote-btn">Get a Free Consultation</a>
                     <a href="{{ route('contact') }}" class="btn btn-outline" id="about-contact-btn">Contact Us</a>
                 </div>
             </div>
             <div data-aos="fade-left">
                 <div class="about-img-box">
-                    <img src="{{ asset('images/about-factory.jpg') }}" alt="Kovai Kiosk Manufacturing Facility" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#f0ede6,#1C1C1E)'">
+                    <img src="{{ asset('images/about-factory.jpg') }}" alt="Manufacturing Facility" loading="lazy" onerror="this.parentElement.style.background='var(--bg-alt)'">
                 </div>
             </div>
         </div>
 
-        <!-- Statistics -->
+        <!-- Statistics Row -->
         <div class="stats-row" data-aos="fade-up">
             <div class="stat-box">
                 <div class="stat-box-num" id="stat-years">15+</div>
@@ -491,23 +543,23 @@
     </div>
 </section>
 
-<!-- Vision & Mission -->
-<section class="about-section" style="background:var(--ivory)">
+<!-- Vision & Mission (Light Grey #F7F8F5) -->
+<section class="about-section" style="background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="container">
         <div class="text-center" data-aos="fade-up">
             <div class="section-label">Our Purpose</div>
             <h2 class="section-title">Vision & Mission</h2>
         </div>
-        <div class="grid-2" style="margin-top:40px">
-            <div class="value-card" data-aos="fade-right" style="text-align:left;background:linear-gradient(135deg,var(--navy),var(--charcoal));color:white;border:none">
-                <div class="value-icon" style="background:linear-gradient(135deg,var(--gold),var(--gold-dark))">
+        <div class="grid-2" style="margin-top:36px">
+            <div class="value-card" data-aos="fade-right" style="text-align:left;background:var(--brand-grey-dark);color:white;border:none">
+                <div class="value-icon" style="background:var(--brand-green);margin:0 0 16px 0">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 </div>
-                <h3 style="font-size:1.3rem;margin-bottom:12px;color:var(--white)">Our Vision</h3>
-                <p style="color:rgba(255,255,255,0.7);line-height:1.8">To be South India's most trusted and innovative kiosk manufacturing company, known for crafting commercial spaces that inspire success and build lasting brands.</p>
+                <h3 style="font-size:1.3rem;margin-bottom:12px;color:#FFFFFF">Our Vision</h3>
+                <p style="color:rgba(255,255,255,0.78);line-height:1.8">To be South India's most trusted and innovative kiosk manufacturing company, known for crafting commercial spaces that inspire success and build lasting brands.</p>
             </div>
             <div class="value-card" data-aos="fade-left" style="text-align:left">
-                <div class="value-icon">
+                <div class="value-icon" style="background:var(--brand-green);margin:0 0 16px 0">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 </div>
                 <h3 style="font-size:1.3rem;margin-bottom:12px">Our Mission</h3>
@@ -517,7 +569,7 @@
     </div>
 </section>
 
-<!-- ===== QUERY LOOP 3D OVERLAPPING PRODUCT CAROUSEL ===== -->
+<!-- ===== QUERY LOOP 3D OVERLAPPING PRODUCT CAROUSEL (White #FFFFFF) ===== -->
 <section class="about-queryloop-section" id="about-showcase" aria-label="Featured Product Showcase">
     <div class="container">
         <div class="text-center" data-aos="fade-up">
@@ -606,27 +658,23 @@
             </div>
         </div>
         @else
-        <!-- Graceful fallback if empty -->
-        <div style="text-align:center;padding:60px 20px;background:#fff;border-radius:20px;margin-top:40px;border:1px solid rgba(201,168,76,0.25)">
+        <!-- Fallback -->
+        <div style="text-align:center;padding:50px 20px;background:#fff;border-radius:var(--radius-lg);margin-top:36px;border:1px solid var(--border)">
             <p style="color:var(--text-muted);font-size:1rem">Showcase items currently being updated. Please check our complete catalogue below.</p>
-            <a href="{{ route('products.index') }}" class="btn btn-primary" style="margin-top:20px">Explore All Products</a>
+            <a href="{{ route('products.index') }}" class="btn btn-primary" style="margin-top:18px">Explore All Products</a>
         </div>
         @endif
     </div>
 </section>
 
-<!-- Manufacturing Expertise -->
+<!-- Manufacturing Expertise (Dark Grey #4A4A4A) -->
 <section class="dark-section">
     <div class="container">
         <div class="about-grid">
             <div data-aos="fade-right">
-                <div class="section-label" style="color:var(--gold-light)">
-                    <span style="background:var(--gold-light);width:30px;height:1px;display:inline-block;vertical-align:middle"></span>
-                    What We Do
-                    <span style="background:var(--gold-light);width:30px;height:1px;display:inline-block;vertical-align:middle"></span>
-                </div>
+                <div class="section-label">What We Do</div>
                 <h2 class="section-title">Our Manufacturing Expertise</h2>
-                <p style="color:rgba(255,255,255,0.6);margin-bottom:32px;line-height:1.8">Our state-of-the-art manufacturing facility in Coimbatore is equipped with the latest technology and staffed by experienced craftsmen.</p>
+                <p style="color:rgba(255,255,255,0.7);margin-bottom:32px;line-height:1.8">Our state-of-the-art manufacturing facility in Coimbatore is equipped with the latest technology and staffed by experienced craftsmen.</p>
                 <div class="expertise-list">
                     @php
                     $expertise = [
@@ -652,15 +700,15 @@
             </div>
             <div data-aos="fade-left">
                 <div class="about-img-box">
-                    <img src="{{ asset('images/manufacturing2.jpg') }}" alt="Manufacturing Expertise" loading="lazy" onerror="this.parentElement.style.background='#1A2E45'">
+                    <img src="{{ asset('images/manufacturing2.jpg') }}" alt="Manufacturing Expertise" loading="lazy" onerror="this.parentElement.style.background='#2D3136'">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Our Values -->
-<section class="about-section" style="background:var(--white)">
+<!-- Our Values (White #FFFFFF) -->
+<section class="about-section" style="background:var(--bg)">
     <div class="container">
         <div class="text-center" data-aos="fade-up">
             <div class="section-label">Our Commitment</div>
@@ -670,12 +718,12 @@
         <div class="values-grid">
             @php
             $values = [
-                ['icon' => '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', 'title' => 'Quality First', 'text' => 'We never compromise on material quality or craftsmanship. Every product undergoes rigorous quality inspection.'],
-                ['icon' => '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>', 'title' => 'Client-Centric Approach', 'text' => 'Your vision drives our design process. We listen, we adapt, and we deliver exactly what you envision.'],
-                ['icon' => '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>', 'title' => 'Innovation in Design', 'text' => 'We continuously evolve our designs to incorporate the latest trends in retail and commercial environments.'],
-                ['icon' => '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>', 'title' => 'On-Time Delivery', 'text' => 'We understand that your business timelines matter. We have a 98% on-time delivery record.'],
-                ['icon' => '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>', 'title' => 'Transparent Pricing', 'text' => 'No hidden costs. We provide detailed, itemized quotations so you always know what you are paying for.'],
-                ['icon' => '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', 'title' => 'After-Sales Support', 'text' => 'Our relationship does not end at delivery. We provide comprehensive after-sales support and maintenance services.'],
+                ['icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', 'title' => 'Quality First', 'text' => 'We never compromise on material quality or craftsmanship. Every product undergoes rigorous quality inspection.'],
+                ['icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>', 'title' => 'Client-Centric Approach', 'text' => 'Your vision drives our design process. We listen, we adapt, and we deliver exactly what you envision.'],
+                ['icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>', 'title' => 'Innovation in Design', 'text' => 'We continuously evolve our designs to incorporate the latest trends in retail and commercial environments.'],
+                ['icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>', 'title' => 'On-Time Delivery', 'text' => 'We understand that your business timelines matter. We have a 98% on-time delivery record.'],
+                ['icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>', 'title' => 'Transparent Pricing', 'text' => 'No hidden costs. We provide detailed, itemized quotations so you always know what you are paying for.'],
+                ['icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>', 'title' => 'After-Sales Support', 'text' => 'Our relationship does not end at delivery. We provide comprehensive after-sales support and maintenance services.'],
             ];
             @endphp
             @foreach($values as $value)
@@ -689,15 +737,15 @@
     </div>
 </section>
 
-<!-- Infrastructure -->
-<section class="about-section" style="background:var(--ivory)">
+<!-- Infrastructure (Light Grey #F7F8F5) -->
+<section class="about-section" style="background:var(--bg-alt);border-top:1px solid var(--border)">
     <div class="container">
         <div class="text-center" data-aos="fade-up">
             <div class="section-label">Our Facility</div>
             <h2 class="section-title">World-Class Infrastructure</h2>
             <p class="section-subtitle">Our manufacturing facility is designed to produce premium products at scale without compromising on quality.</p>
         </div>
-        <div class="infra-grid" style="margin-top:40px">
+        <div class="infra-grid" style="margin-top:36px">
             @php
             $infra = [
                 ['num' => '01', 'title' => '20,000 sq.ft. Factory Floor', 'text' => 'A spacious, purpose-built manufacturing facility with separate zones for fabrication, finishing and assembly.'],
@@ -721,15 +769,16 @@
     </div>
 </section>
 
-<!-- CTA -->
-<section style="background:var(--charcoal);padding:80px 0;text-align:center">
+<!-- CTA (Solid Brand Lime Green #8DC63F) -->
+<section class="cta-section">
     <div class="container" data-aos="fade-up">
-        <div class="section-label" style="justify-content:center">Start Your Project</div>
-        <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);margin-bottom:16px">Ready to Work With Us?</h2>
-        <p style="color:rgba(255,255,255,0.6);margin-bottom:40px;font-size:1.1rem">Let's discuss your project and see how we can bring your vision to life.</p>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-            <a href="{{ route('enquiry.create') }}" class="btn btn-primary" id="about-cta-btn">Request a Quote</a>
-            <a href="{{ route('contact') }}" class="btn btn-outline-white" id="about-cta-contact-btn">Visit Our Factory</a>
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Work With Us?</h2>
+            <p class="cta-subtitle">Let's discuss your project and see how Pathy Display Racks can bring your vision to life.</p>
+            <div class="cta-buttons">
+                <a href="{{ route('enquiry.create') }}" class="btn-cta-white" id="about-cta-btn">Request a Quote</a>
+                <a href="{{ route('contact') }}" class="btn-cta-outline" id="about-cta-contact-btn">Visit Our Factory</a>
+            </div>
         </div>
     </div>
 </section>
@@ -750,178 +799,102 @@ document.addEventListener('DOMContentLoaded', function () {
     const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.queryloop-dot')) : [];
 
     const total = cards.length;
-    if (total === 0) return;
+    if (total <= 1) return;
 
-    let currentIndex = 0;
-    let isTransitioning = false;
-    let autoSlideTimer = null;
+    let centerIdx = 0;
+    let isAnimating = false;
+    let autoTimer = null;
     let isPaused = false;
-    const intervalTime = 4600; // ms
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Apply layout positions according to active center index
-    function updatePositions(newIndex, direction = 'next') {
-        if (isTransitioning && newIndex === currentIndex) return;
-        isTransitioning = true;
-
-        const leftIndex = (newIndex - 1 + total) % total;
-        const rightIndex = (newIndex + 1) % total;
-
+    function applyCardClasses(center) {
         cards.forEach((card, idx) => {
-            // Remove previous positioning classes
             card.classList.remove('card-center', 'card-left', 'card-right', 'card-hidden-left', 'card-hidden-right');
 
-            if (idx === newIndex) {
+            const diff = (idx - center + total) % total;
+
+            if (diff === 0) {
                 card.classList.add('card-center');
                 card.setAttribute('aria-hidden', 'false');
-            } else if (idx === leftIndex && total > 1) {
-                card.classList.add('card-left');
-                card.setAttribute('aria-hidden', 'false');
-            } else if (idx === rightIndex && total > 2) {
+            } else if (diff === 1 || (total === 2 && diff === 1)) {
                 card.classList.add('card-right');
                 card.setAttribute('aria-hidden', 'false');
+            } else if (diff === total - 1) {
+                card.classList.add('card-left');
+                card.setAttribute('aria-hidden', 'false');
+            } else if (diff > 1 && diff <= total / 2) {
+                card.classList.add('card-hidden-right');
+                card.setAttribute('aria-hidden', 'true');
             } else {
-                // Determine whether hidden on left or right side for smooth offstage transitions
-                const diff = (idx - newIndex + total) % total;
-                if (diff < total / 2) {
-                    card.classList.add('card-hidden-right');
-                } else {
-                    card.classList.add('card-hidden-left');
-                }
+                card.classList.add('card-hidden-left');
                 card.setAttribute('aria-hidden', 'true');
             }
         });
 
-        // Synchronize dots
         if (dots.length > 0) {
             dots.forEach((dot, idx) => {
-                const isActive = idx === newIndex;
+                const isActive = idx === center;
                 dot.classList.toggle('active', isActive);
                 dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
             });
         }
-
-        currentIndex = newIndex;
-
-        setTimeout(() => {
-            isTransitioning = false;
-        }, 650);
     }
 
-    function next() {
-        const target = (currentIndex + 1) % total;
-        updatePositions(target, 'next');
+    function rotateNext() {
+        if (isAnimating) return;
+        isAnimating = true;
+        centerIdx = (centerIdx + 1) % total;
+        applyCardClasses(centerIdx);
+        setTimeout(() => { isAnimating = false; }, 550);
     }
 
-    function prev() {
-        const target = (currentIndex - 1 + total) % total;
-        updatePositions(target, 'prev');
+    function rotatePrev() {
+        if (isAnimating) return;
+        isAnimating = true;
+        centerIdx = (centerIdx - 1 + total) % total;
+        applyCardClasses(centerIdx);
+        setTimeout(() => { isAnimating = false; }, 550);
     }
 
-    // Auto Play Timer
-    function startAutoPlay() {
-        if (prefersReducedMotion || total <= 1) return;
-        stopAutoPlay();
-        autoSlideTimer = setInterval(() => {
-            if (!isPaused) {
-                next();
-            }
-        }, intervalTime);
-    }
+    if (nextBtn) nextBtn.addEventListener('click', () => { resetAuto(); rotateNext(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { resetAuto(); rotatePrev(); });
 
-    function stopAutoPlay() {
-        if (autoSlideTimer) {
-            clearInterval(autoSlideTimer);
-            autoSlideTimer = null;
-        }
-    }
-
-    // Button event listeners
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            next();
-            startAutoPlay();
-        });
-    }
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            prev();
-            startAutoPlay();
-        });
-    }
-
-    // Direct card click: clicking left card brings it to center, clicking right card brings it to center
-    cards.forEach((card, index) => {
-        card.addEventListener('click', function (e) {
-            // Don't intercept click on action links/buttons
-            if (e.target.closest('.queryloop-card-btn') || e.target.closest('a')) {
-                return;
-            }
-
-            if (card.classList.contains('card-left')) {
-                e.preventDefault();
-                prev();
-                startAutoPlay();
-            } else if (card.classList.contains('card-right')) {
-                e.preventDefault();
-                next();
-                startAutoPlay();
+    cards.forEach((card, idx) => {
+        card.addEventListener('click', () => {
+            if (idx !== centerIdx) {
+                resetAuto();
+                centerIdx = idx;
+                applyCardClasses(centerIdx);
             }
         });
     });
 
-    // Pagination Dots click
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', (e) => {
-            e.preventDefault();
-            updatePositions(index, index > currentIndex ? 'next' : 'prev');
-            startAutoPlay();
+    dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+            resetAuto();
+            centerIdx = idx;
+            applyCardClasses(centerIdx);
         });
     });
 
-    // Pause on Hover
+    function startAuto() {
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+            if (!isPaused) rotateNext();
+        }, 5000);
+    }
+
+    function resetAuto() {
+        clearInterval(autoTimer);
+        startAuto();
+    }
+
     if (container) {
         container.addEventListener('mouseenter', () => { isPaused = true; });
         container.addEventListener('mouseleave', () => { isPaused = false; });
     }
 
-    // Mobile Swipe / Touch Events
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchEndX = 0;
-    let touchEndY = 0;
-
-    stage.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-        isPaused = true;
-    }, { passive: true });
-
-    stage.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        touchEndY = e.changedTouches[0].screenY;
-        isPaused = false;
-
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
-
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
-            if (deltaX < 0) {
-                next();
-            } else {
-                prev();
-            }
-            startAutoPlay();
-        }
-    }, { passive: true });
-
-    // Initial position setup
-    updatePositions(0);
-    startAutoPlay();
+    applyCardClasses(0);
+    startAuto();
 });
 </script>
 @endsection

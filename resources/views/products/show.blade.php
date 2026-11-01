@@ -1,37 +1,37 @@
 @extends('layouts.app')
-@section('title', $product->meta_title ?? $product->name . ' | Kovai Kiosk')
+@section('title', $product->meta_title ?? $product->name . ' | Pathy Display Racks & Kovai Kiosk')
 @section('meta_description', $product->meta_description ?? $product->short_description)
 
 @section('styles')
 <style>
-.product-detail-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; padding: 80px 0; }
-.gallery-main { aspect-ratio: 4/3; border-radius: var(--radius-lg); overflow: hidden; background: var(--ivory-dark); margin-bottom: 12px; }
+.product-detail-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; padding: 70px 0; }
+.gallery-main { aspect-ratio: 4/3; border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-alt); margin-bottom: 14px; border: 1px solid var(--border); }
 .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
 .gallery-thumbs { display: flex; gap: 10px; }
-.gallery-thumb { width: 72px; height: 72px; border-radius: 10px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; flex-shrink: 0; }
-.gallery-thumb.active { border-color: var(--gold); }
+.gallery-thumb { width: 72px; height: 72px; border-radius: var(--radius); overflow: hidden; cursor: pointer; border: 2.5px solid transparent; transition: border-color 0.2s; flex-shrink: 0; background: var(--bg-alt); }
+.gallery-thumb.active { border-color: var(--brand-green); }
 .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.product-cat-label { font-family: 'Outfit', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-.product-title { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 16px; }
-.product-short-desc { color: var(--text-secondary); line-height: 1.8; margin-bottom: 28px; }
-.specs-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-.specs-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
-.specs-table td:first-child { font-weight: 600; color: var(--text-secondary); width: 40%; }
-.features-list { list-style: none; margin: 20px 0; display: flex; flex-direction: column; gap: 10px; }
-.features-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.88rem; }
-.features-list li::before { content: '✦'; color: var(--gold); flex-shrink: 0; font-size: 0.7rem; margin-top: 3px; }
-.enquiry-box { background: var(--ivory); border-radius: var(--radius-lg); padding: 28px; border: 1px solid var(--border); margin-top: 32px; }
-.section-toggle { font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 10px; margin: 28px 0 16px; }
-.related-section { padding: 60px 0; background: var(--ivory); }
+.product-cat-label { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-green); margin-bottom: 10px; }
+.product-title { font-family: var(--font-heading); font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700; color: var(--brand-grey-dark); margin-bottom: 14px; line-height: 1.25; }
+.product-short-desc { font-family: var(--font-body); color: var(--text-secondary); line-height: 1.75; margin-bottom: 24px; font-size: 0.95rem; }
+.specs-table { width: 100%; border-collapse: collapse; margin: 18px 0; }
+.specs-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.specs-table td:first-child { font-weight: 600; color: var(--brand-grey-dark); width: 40%; }
+.features-list { list-style: none; margin: 18px 0; display: flex; flex-direction: column; gap: 10px; }
+.features-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; color: var(--text-primary); }
+.features-list li::before { content: '✓'; color: var(--brand-green); font-weight: 800; font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+.enquiry-box { background: var(--bg-alt); border-radius: var(--radius-lg); padding: 26px; border: 1px solid var(--border); margin-top: 32px; }
+.section-toggle { font-family: var(--font-heading); font-size: 0.82rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-grey-dark); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin: 28px 0 16px; }
+.related-section { padding: 65px 0; background: var(--bg-alt); border-top: 1px solid var(--border); }
 @media (max-width: 768px) {
-    .product-detail-grid { grid-template-columns: 1fr; }
+    .product-detail-grid { grid-template-columns: 1fr; gap: 36px; padding: 40px 0; }
 }
 </style>
 @endsection
 
 @section('content')
 <!-- Page Hero -->
-<section class="page-hero" style="padding:50px 0">
+<section class="page-hero" style="padding:45px 0">
     <div class="container">
         <nav class="breadcrumb">
             <a href="{{ route('home') }}">Home</a>
@@ -58,7 +58,7 @@
                 @elseif($product->primary_image)
                     <img src="{{ $product->primary_image_url }}" alt="{{ $product->name }}" id="gallery-main-img" loading="eager">
                 @else
-                    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--ivory-dark)">
+                    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg-alt)">
                         <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--border)" stroke-width="1.5"><rect x="3" y="3" width="18" height="13" rx="2"/></svg>
                     </div>
                 @endif
@@ -83,7 +83,7 @@
             <!-- CTA Buttons -->
             <div style="display:flex;gap:14px;flex-wrap:wrap">
                 <a href="{{ route('enquiry.create', ['product_id' => $product->id]) }}" class="btn btn-primary" id="product-enquire-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                     Enquire Now
                 </a>
                 @if(!empty($siteSettings['whatsapp']))
@@ -131,8 +131,8 @@
 
             <!-- Enquiry Box -->
             <div class="enquiry-box">
-                <h4 style="font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:10px">Looking for Custom Options?</h4>
-                <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:16px">We can customize this product to fit your exact requirements — dimensions, materials, branding and more.</p>
+                <h4 style="font-family:var(--font-heading);font-size:0.95rem;font-weight:700;color:var(--brand-grey-dark);margin-bottom:8px">Looking for Custom Options?</h4>
+                <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:16px;line-height:1.6">We can customize this product to fit your exact requirements — dimensions, materials, branding and more.</p>
                 <a href="{{ route('enquiry.create', ['product_id' => $product->id]) }}" class="btn btn-primary btn-sm" id="product-custom-enquiry-btn">Request Custom Quote</a>
             </div>
         </div>
@@ -151,15 +151,15 @@
 @if($relatedProducts->count() > 0)
 <section class="related-section">
     <div class="container">
-        <h2 style="font-size:1.8rem;margin-bottom:32px" data-aos="fade-up">Related Products</h2>
+        <h2 style="font-size:1.8rem;margin-bottom:32px;font-family:var(--font-heading);font-weight:700;color:var(--brand-grey-dark)" data-aos="fade-up">Related Products</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px">
             @foreach($relatedProducts as $related)
             <a href="{{ route('products.show', [$category->slug, $related->slug]) }}" class="product-card" style="display:block" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
                 <div class="product-card-image">
-                    <img src="{{ $related->primary_image_url }}" alt="{{ $related->name }}" loading="lazy">
+                    <img src="{{ $related->primary_image_url }}" alt="{{ $related->name }}" loading="lazy" onerror="this.src='{{ asset('images/placeholder-product.jpg') }}'">
                 </div>
                 <div class="product-card-body">
-                    <h3 class="product-card-title" style="font-size:1rem">{{ $related->name }}</h3>
+                    <h3 class="product-card-title" style="font-size:1.05rem">{{ $related->name }}</h3>
                     <p class="product-card-desc" style="-webkit-line-clamp:2">{{ $related->short_description }}</p>
                 </div>
             </a>
