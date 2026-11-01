@@ -9,10 +9,10 @@
    ========================================================================== */
 .hero {
     position: relative;
-    min-height: 90vh;
+    min-height: 88vh;
     display: flex;
     align-items: center;
-    background: #2D3136;
+    background: #F7FAF1;
     overflow: hidden;
 }
 
@@ -24,12 +24,12 @@
 
 .hero-shape-1 {
     position: absolute;
-    width: 620px;
-    height: 620px;
+    width: 600px;
+    height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(141, 198, 63, 0.14) 0%, transparent 70%);
-    top: -180px;
-    right: -100px;
+    background: radial-gradient(circle, rgba(141, 198, 63, 0.12) 0%, rgba(141, 198, 63, 0) 70%);
+    top: -160px;
+    right: -80px;
     animation: pulse-slow 8s ease-in-out infinite;
 }
 
@@ -38,19 +38,14 @@
     width: 440px;
     height: 440px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(141, 198, 63, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(141, 198, 63, 0.08) 0%, rgba(141, 198, 63, 0) 70%);
     bottom: -100px;
     left: -60px;
     animation: pulse-slow 10s ease-in-out infinite reverse;
 }
 
 .hero-grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+    display: none;
 }
 
 @keyframes pulse-slow {
@@ -58,37 +53,41 @@
     50% { transform: scale(1.08) translate(15px, -15px); }
 }
 
+.hero .container {
+    max-width: 1360px;
+}
+
 .hero-content {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 70px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
     align-items: center;
-    padding: 80px 0;
+    padding: 70px 0;
 }
 
 .hero-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(141, 198, 63, 0.15);
-    border: 1px solid rgba(141, 198, 63, 0.35);
-    border-radius: var(--radius-pill);
-    padding: 7px 20px;
-    font-family: var(--font-heading);
+    background: #EEF7DD;
+    border: none;
+    border-radius: var(--radius-pill, 50px);
+    padding: 8px 22px;
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--brand-green);
+    color: #5E9420;
     margin-bottom: 24px;
 }
 
 .hero-eyebrow-dot {
     width: 7px;
     height: 7px;
-    background: var(--brand-green);
+    background: #8DC63F;
     border-radius: 50%;
     animation: blink 2s ease-in-out infinite;
 }
@@ -99,24 +98,24 @@
 }
 
 .hero-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: clamp(2.3rem, 4.8vw, 3.8rem);
     font-weight: 800;
     line-height: 1.15;
-    color: #FFFFFF;
+    color: #4A4A4A;
     margin-bottom: 20px;
     letter-spacing: -0.5px;
 }
 
 .hero-title .highlight {
-    color: var(--brand-green) !important;
+    color: #8DC63F !important;
 }
 
 .hero-subtitle {
-    font-family: var(--font-body);
+    font-family: var(--font-body, 'Inter', sans-serif);
     font-size: 1.05rem;
     line-height: 1.75;
-    color: rgba(255, 255, 255, 0.75);
+    color: #757575;
     margin-bottom: 38px;
     max-width: 520px;
 }
@@ -124,30 +123,76 @@
 .hero-cta {
     display: flex;
     gap: 14px;
+    align-items: center;
     flex-wrap: wrap;
     margin-bottom: 48px;
+}
+
+#hero-explore-btn {
+    background: #8DC63F !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: var(--radius-pill, 50px) !important;
+    padding: 13px 28px !important;
+    font-family: var(--font-heading, 'Poppins', sans-serif) !important;
+    font-size: 0.92rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(141, 198, 63, 0.3) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.25s ease !important;
+}
+
+#hero-explore-btn:hover {
+    background: #76A82F !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(118, 168, 47, 0.35) !important;
+}
+
+#hero-quote-btn {
+    background: #FFFFFF !important;
+    border: 2px solid #8DC63F !important;
+    color: #5E9420 !important;
+    border-radius: var(--radius-pill, 50px) !important;
+    padding: 11px 26px !important;
+    font-family: var(--font-heading, 'Poppins', sans-serif) !important;
+    font-size: 0.92rem !important;
+    font-weight: 700 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.25s ease !important;
+}
+
+#hero-quote-btn:hover {
+    background: #EEF7DD !important;
+    border-color: #76A82F !important;
+    color: #76A82F !important;
+    transform: translateY(-2px) !important;
 }
 
 .hero-stats {
     display: flex;
     gap: 36px;
     padding-top: 32px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid #E5E7EB;
 }
 
 .hero-stat-num {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 2rem;
     font-weight: 800;
-    color: var(--brand-green);
+    color: #8DC63F;
     line-height: 1.1;
 }
 
 .hero-stat-label {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 0.78rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
+    color: #757575;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: 4px;
@@ -167,7 +212,7 @@
 .hero-slider-wrap {
     position: relative;
     width: 100%;
-    max-width: 520px;
+    max-width: 720px;
 }
 
 .hero-slider-floating {
@@ -189,10 +234,10 @@
 
 .hero-slider-glow {
     position: absolute;
-    inset: -20px;
-    border-radius: 36px;
-    background: radial-gradient(circle at 60% 40%, rgba(141, 198, 63, 0.25) 0%, rgba(45, 49, 54, 0.4) 50%, transparent 75%);
-    filter: blur(20px);
+    inset: -24px;
+    border-radius: 40px;
+    background: radial-gradient(circle at 60% 40%, rgba(141, 198, 63, 0.18) 0%, transparent 70%);
+    filter: blur(28px);
     z-index: 0;
     pointer-events: none;
 }
@@ -200,14 +245,15 @@
 .hero-slider-viewport {
     position: relative;
     width: 100%;
-    aspect-ratio: 4/5;
-    border-radius: var(--radius-xl);
+    min-height: 520px;
+    aspect-ratio: 4/3.1;
+    border-radius: 28px;
     overflow: hidden;
-    background: #1E2125;
-    border: 1.5px solid rgba(141, 198, 63, 0.35);
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
     box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.5),
-        0 0 25px rgba(141, 198, 63, 0.15);
+        0 22px 52px rgba(0, 0, 0, 0.10),
+        0 4px 14px rgba(0, 0, 0, 0.04);
     z-index: 1;
     touch-action: pan-y;
     user-select: none;
@@ -228,6 +274,7 @@
         transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
         visibility 0.65s;
     overflow: hidden;
+    background: #FFFFFF;
 }
 
 .hero-slide.active {
@@ -255,7 +302,7 @@
 }
 
 .hero-slide.active .hero-slide-img {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
 .hero-slide-gradient {
@@ -264,24 +311,17 @@
     pointer-events: none;
     background: linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.05) 0%,
-        rgba(0, 0, 0, 0.2) 40%,
-        rgba(0, 0, 0, 0.75) 75%,
-        rgba(0, 0, 0, 0.92) 100%
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 30%,
+        rgba(255, 255, 255, 0.88) 58%,
+        #FFFFFF 75%,
+        #FFFFFF 100%
     );
     z-index: 2;
 }
 
 .hero-slide-flare {
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    pointer-events: none;
-    background: radial-gradient(circle, rgba(141, 198, 63, 0.2) 0%, transparent 70%);
-    z-index: 2;
+    display: none;
 }
 
 .hero-slide-content {
@@ -289,12 +329,19 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 24px 26px 36px;
+    padding: 24px 26px 34px;
     z-index: 4;
     display: flex;
     flex-direction: column;
     gap: 8px;
     pointer-events: auto;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.94) 22%,
+        #FFFFFF 45%,
+        #FFFFFF 100%
+    );
 }
 
 .hero-slide-category {
@@ -302,17 +349,16 @@
     align-items: center;
     gap: 7px;
     padding: 5px 14px;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-heading);
+    border-radius: var(--radius-pill, 50px);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     width: fit-content;
-    background: rgba(141, 198, 63, 0.2);
-    border: 1px solid rgba(141, 198, 63, 0.45);
-    color: var(--brand-green);
-    backdrop-filter: blur(8px);
+    background: #EEF7DD;
+    border: 1px solid rgba(141, 198, 63, 0.4);
+    color: #5E9420;
     transform: translateY(10px);
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1) 0.15s;
@@ -324,13 +370,13 @@
 }
 
 .hero-slide-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 1.45rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #4A4A4A;
     line-height: 1.25;
     margin: 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    text-shadow: none;
     transform: translateY(12px);
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1) 0.25s;
@@ -342,10 +388,10 @@
 }
 
 .hero-slide-subtitle {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    color: var(--brand-green-light);
-    font-weight: 500;
+    font-family: var(--font-heading, 'Poppins', sans-serif);
+    font-size: 0.88rem;
+    color: #76A82F;
+    font-weight: 600;
     letter-spacing: 0.3px;
     margin: 0;
     transform: translateY(12px);
@@ -359,8 +405,9 @@
 }
 
 .hero-slide-desc {
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 0.84rem;
+    color: #757575;
     line-height: 1.55;
     margin: 0;
     transform: translateY(12px);
@@ -383,15 +430,15 @@
     gap: 7px;
     margin-top: 4px;
     padding: 7px 18px;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-heading);
+    border-radius: var(--radius-pill, 50px);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 0.8rem;
     font-weight: 700;
     color: #FFFFFF;
-    background: var(--brand-green);
+    background: #8DC63F;
     border: none;
     width: fit-content;
-    box-shadow: 0 4px 12px rgba(141, 198, 63, 0.35);
+    box-shadow: 0 4px 12px rgba(141, 198, 63, 0.3);
     transform: translateY(12px);
     opacity: 0;
     transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1) 0.45s, opacity 0.4s ease 0.45s, background 0.2s;
@@ -403,77 +450,83 @@
 }
 
 .hero-slide-btn:hover {
-    background: var(--brand-green-dark);
+    background: #76A82F;
     transform: translateY(-2px);
     color: #FFFFFF;
 }
 
-/* Slider Navigation Buttons */
+/* Slider Navigation Buttons (White Circle, Green Arrow) */
 .hero-slider-nav-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    background: rgba(30, 33, 37, 0.85);
-    border: 1px solid rgba(141, 198, 63, 0.4);
-    color: var(--brand-green);
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    color: #8DC63F;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
     cursor: pointer;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    transition: var(--transition);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.25s ease;
 }
 
 .hero-slider-prev { left: 14px; }
 .hero-slider-next { right: 14px; }
 
 .hero-slider-nav-btn:hover {
-    background: var(--brand-green);
+    background: #8DC63F;
     color: #FFFFFF;
-    border-color: var(--brand-green);
+    border-color: #8DC63F;
     transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 6px 20px rgba(141, 198, 63, 0.35);
 }
 
 .hero-slider-dots {
     position: absolute;
-    bottom: 12px;
-    left: 0;
-    right: 0;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     z-index: 10;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--radius-pill, 50px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .hero-slider-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #D1D5DB;
+    border: none;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.25s ease;
     padding: 0;
 }
 
 .hero-slider-dot.active {
     width: 24px;
-    border-radius: var(--radius-pill);
-    background: var(--brand-green);
-    border-color: var(--brand-green);
+    border-radius: var(--radius-pill, 50px);
+    background: #8DC63F;
 }
 
 /* Fallback Design */
 .hero-fallback-backdrop {
     width: 100%;
     height: 100%;
-    background: #1E2125;
+    background: #F7FAF1;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -482,19 +535,14 @@
 }
 
 .hero-fallback-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(141, 198, 63, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(141, 198, 63, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
+    display: none;
 }
 
 .hero-fallback-icon-wrap {
     width: 84px;
     height: 84px;
-    border-radius: var(--radius-lg);
-    background: rgba(141, 198, 63, 0.15);
+    border-radius: var(--radius-lg, 16px);
+    background: #EEF7DD;
     border: 1px solid rgba(141, 198, 63, 0.35);
     display: flex;
     align-items: center;
@@ -508,16 +556,16 @@
     bottom: -16px;
     left: -16px;
     background: #FFFFFF;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-lg, 16px);
     padding: 12px 18px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
     display: flex;
     gap: 12px;
     align-items: center;
     min-width: 190px;
     z-index: 12;
     animation: badgeFloat 5.5s ease-in-out infinite;
-    border: 1px solid var(--border);
+    border: 1px solid #E5E5E5;
 }
 
 @keyframes badgeFloat {
@@ -528,8 +576,8 @@
 .hero-badge-icon {
     width: 42px;
     height: 42px;
-    background: var(--brand-green);
-    border-radius: var(--radius);
+    background: #8DC63F;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -539,31 +587,30 @@
 
 .hero-badge-text strong {
     display: block;
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 0.92rem;
     font-weight: 700;
-    color: var(--brand-grey-dark);
+    color: #4A4A4A;
 }
 
 .hero-badge-text span {
-    font-family: var(--font-body);
+    font-family: var(--font-body, 'Inter', sans-serif);
     font-size: 0.74rem;
-    color: var(--text-muted);
+    color: #757575;
 }
 
 .hero-floating-card {
     position: absolute;
     top: 24px;
     right: -24px;
-    background: rgba(30, 33, 37, 0.9);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(141, 198, 63, 0.4);
-    border-radius: var(--radius-lg);
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: var(--radius-lg, 16px);
     padding: 14px 18px;
-    color: #FFFFFF;
+    color: #4A4A4A;
     min-width: 170px;
     z-index: 12;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
     animation: badgeFloatReverse 6.5s ease-in-out infinite;
 }
 
@@ -573,25 +620,26 @@
 }
 
 .hero-floating-card-label {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 0.7rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--brand-green);
+    color: #5E9420;
     margin-bottom: 4px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .hero-floating-card-val {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 1.3rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #4A4A4A;
 }
 
 .hero-floating-card-sub {
-    font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.65);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 0.74rem;
+    color: #757575;
 }
 
 /* ==========================================================================
@@ -761,7 +809,7 @@
 .category-card-placeholder {
     width: 100%;
     height: 100%;
-    background: #2D3136;
+    background: #E5E7EB;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1031,7 +1079,7 @@
 .project-item-placeholder {
     width: 100%;
     height: 100%;
-    background: #2D3136;
+    background: #E5E7EB;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1183,7 +1231,7 @@
         width: 100%;
         margin: 0 auto;
     }
-    .hero-slider-wrap { max-width: 480px; }
+    .hero-slider-wrap { max-width: 620px; }
     .hero-floating-card { right: -10px; top: -10px; }
     .hero-badge { left: -10px; bottom: -12px; }
     .hero-subtitle { margin: 0 auto 38px; }
@@ -1202,7 +1250,7 @@
     .hero-content { padding: 60px 0 40px; gap: 32px; }
     .hero-title { font-size: 2.1rem; }
     .hero-stats { gap: 20px; flex-wrap: wrap; }
-    .hero-slider-viewport { aspect-ratio: 16/12; min-height: 300px; }
+    .hero-slider-viewport { aspect-ratio: 4/3.1; min-height: 380px; }
     .hero-slide-title { font-size: 1.2rem; }
     .hero-slide-subtitle { font-size: 0.76rem; }
     .hero-slide-content { padding: 16px 18px 24px; }
@@ -1267,7 +1315,7 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                         Explore Our Products
                     </a>
-                    <a href="{{ route('enquiry.create') }}" class="btn btn-outline-white" id="hero-quote-btn">
+                    <a href="{{ route('enquiry.create') }}" class="btn btn-outline" id="hero-quote-btn">
                         Request a Custom Quote
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
@@ -1288,10 +1336,10 @@
                 </div>
             </div>
 
-            <!-- Right: Premium Animated Hero Slider -->
+            <!-- Right: Premium Hero Slider (Show Only Image) -->
             <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
                 <div class="hero-slider-wrap" id="hero-slider-container">
-                    <!-- 3D Floating Stage -->
+                    <!-- Floating Stage Frame -->
                     <div class="hero-slider-floating" id="hero-slider-floating">
                         <!-- Ambient Backdrop Glow -->
                         <div class="hero-slider-glow"></div>
@@ -1301,45 +1349,8 @@
                             @if(isset($heroSliders) && $heroSliders->isNotEmpty())
                                 @foreach($heroSliders as $index => $slide)
                                 <div class="hero-slide {{ $index === 0 ? 'active' : '' }}" data-slide-index="{{ $index }}" role="group" aria-roledescription="slide" aria-label="{{ $slide->title }}">
-                                    <!-- Image with Eager Loading on first slide, Lazy on remainder -->
-                                    <img src="{{ $slide->image_url }}" alt="{{ $slide->title }}" class="hero-slide-img" {{ $index === 0 ? 'loading=eager fetchpriority=high' : 'loading=lazy' }} onerror="this.onerror=null;this.parentElement.style.background='#2D3136'">
-
-                                    <!-- Atmospheric Overlays -->
-                                    <div class="hero-slide-gradient"></div>
-                                    <div class="hero-slide-flare"></div>
-
-                                    <!-- Slide Caption Content -->
-                                    <div class="hero-slide-content">
-                                        @if($slide->category)
-                                            <div class="hero-slide-category">
-                                                @if(stripos($slide->category, 'kiosk') !== false)
-                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                                                @elseif(stripos($slide->category, 'cart') !== false)
-                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                                                @elseif(stripos($slide->category, 'ev') !== false || stripos($slide->category, 'vehicle') !== false)
-                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                                                @else
-                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
-                                                @endif
-                                                <span>{{ $slide->category }}</span>
-                                            </div>
-                                        @endif
-
-                                        <h3 class="hero-slide-title">{{ $slide->title }}</h3>
-
-                                        @if($slide->subtitle)
-                                            <div class="hero-slide-subtitle">{{ $slide->subtitle }}</div>
-                                        @elseif($slide->description)
-                                            <p class="hero-slide-desc">{{ Str::limit($slide->description, 90) }}</p>
-                                        @endif
-
-                                        @if($slide->button_text)
-                                            <a href="{{ $slide->button_url ?? route('products.index') }}" class="hero-slide-btn">
-                                                <span>{{ $slide->button_text }}</span>
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                                            </a>
-                                        @endif
-                                    </div>
+                                    <!-- Show Only Image -->
+                                    <img src="{{ $slide->image_url }}" alt="{{ $slide->title }}" class="hero-slide-img" {{ $index === 0 ? 'loading=eager fetchpriority=high' : 'loading=lazy' }} onerror="this.onerror=null;this.parentElement.style.background='#F7FAF1'">
                                 </div>
                                 @endforeach
 
@@ -1360,44 +1371,11 @@
                                 </div>
                                 @endif
                             @else
-                                <!-- Graceful Fallback Showcase Card if no slides exist -->
+                                <!-- Fallback Slide with Image Only -->
                                 <div class="hero-slide active fallback-slide">
-                                    <div class="hero-fallback-backdrop">
-                                        <div class="hero-fallback-grid"></div>
-                                        <div class="hero-fallback-icon-wrap">
-                                            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="var(--brand-green)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><circle cx="12" cy="10" r="3"/></svg>
-                                        </div>
-                                        <div class="hero-slide-content">
-                                            <div class="hero-slide-category">
-                                                <span>Custom Manufacturing</span>
-                                            </div>
-                                            <h3 class="hero-slide-title">Precision Kiosks & Display Racks</h3>
-                                            <p class="hero-slide-desc">Smart interactive displays, food push carts, and commercial display systems manufactured by Pathy Display Racks.</p>
-                                            <a href="{{ route('products.index') }}" class="hero-slide-btn">
-                                                <span>Explore Catalogue</span>
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <img src="{{ asset('images/product1.jpg') }}" alt="Pathy Display Racks & Kiosks" class="hero-slide-img" onerror="this.src='{{ asset('images/placeholder-product.jpg') }}'">
                                 </div>
                             @endif
-                        </div>
-
-                        <!-- Floating Quality Badges -->
-                        <div class="hero-badge">
-                            <div class="hero-badge-icon">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                            </div>
-                            <div class="hero-badge-text">
-                                <strong>ISO Certified</strong>
-                                <span>Premium Manufacturing</span>
-                            </div>
-                        </div>
-
-                        <div class="hero-floating-card">
-                            <div class="hero-floating-card-label">Engineering Vision</div>
-                            <div class="hero-floating-card-val">100% Custom</div>
-                            <div class="hero-floating-card-sub">Smart Kiosk • Push Cart • EV</div>
                         </div>
                     </div>
                 </div>
@@ -1413,41 +1391,56 @@
             <div data-aos="fade-right">
                 <div class="brand-tag">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-                    Our Story
+                    About Us
                 </div>
-                <h2 class="section-title">Crafting Business Spaces With <span class="highlight">Precision & Passion</span></h2>
+                <h2 class="section-title">Your Trusted Partner in <span class="highlight">Customized Kiosk Manufacturing</span></h2>
                 <p style="color:var(--text-secondary);margin-bottom:16px;line-height:1.8;">
-                    Kovai Kiosk is a leading manufacturer of premium commercial kiosks, mobile push carts, and electric vehicle solutions. Based in Coimbatore, Tamil Nadu, we have been transforming retail and food service environments for over 15 years.
+                    At PATHY KIOSK, we specialize in designing and manufacturing innovative kiosk solutions that transform business ideas into functional and attractive spaces. We deliver customized solutions for food, beverage, retail and commercial businesses, combining creative design, quality manufacturing and practical expertise.
                 </p>
-                <p style="color:var(--text-secondary);line-height:1.8;">
-                    Every product we craft is a combination of engineering excellence, premium materials, and your unique brand identity. From concept to installation, we are your complete manufacturing partner.
+                <p style="color:var(--text-secondary);margin-bottom:24px;line-height:1.8;">
+                    From concept development to final installation, our experienced team manages every stage of the process, including kiosk design, fabrication, brand development, kitchen planning and equipment solutions. We focus on creating business spaces that reflect your brand identity while maximizing functionality and customer appeal.
                 </p>
+
+                <h3 style="font-family:var(--font-heading);font-size:1.15rem;font-weight:700;color:var(--brand-dark);margin-top:28px;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+                    <span style="display:inline-block;width:20px;height:3px;background:var(--brand-green);border-radius:2px;"></span>
+                    Complete Business Solutions Under One Roof
+                </h3>
+
                 <div class="brand-intro-features">
                     <div class="brand-feature">
                         <div class="brand-feature-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                         </div>
                         <div class="brand-feature-text">
-                            <h4>Premium Quality Materials</h4>
-                            <p>We use only industrial-grade steel, food-safe stainless steel, and premium wood finishes.</p>
+                            <h4>Bespoke Kiosk Design</h4>
+                            <p>Custom-designed kiosks developed to complement your business concept, operational needs and brand identity.</p>
                         </div>
                     </div>
                     <div class="brand-feature">
                         <div class="brand-feature-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         </div>
                         <div class="brand-feature-text">
-                            <h4>100% Custom Manufacturing</h4>
-                            <p>Every kiosk is designed and manufactured to your exact specifications and brand identity.</p>
+                            <h4>Professional Branding Solutions</h4>
+                            <p>Creative branding, visual presentation and design elements that establish a distinctive identity for your business.</p>
                         </div>
                     </div>
                     <div class="brand-feature">
                         <div class="brand-feature-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                         </div>
                         <div class="brand-feature-text">
-                            <h4>End-to-End Service</h4>
-                            <p>Design, manufacturing, branding, delivery and professional installation — all under one roof.</p>
+                            <h4>Manufacturing & Installation</h4>
+                            <p>Quality-focused fabrication and professional installation to deliver ready-to-operate kiosk solutions.</p>
+                        </div>
+                    </div>
+                    <div class="brand-feature">
+                        <div class="brand-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                        </div>
+                        <div class="brand-feature-text">
+                            <h4>Commercial Kitchen Solutions</h4>
+                            <p>Expert kitchen planning, consultation and equipment solutions tailored to your menu and business operations.</p>
                         </div>
                     </div>
                 </div>
@@ -1457,7 +1450,7 @@
                     <img src="{{ asset('images/manufacturing.jpg') }}" alt="Kiosk Manufacturing Facility" loading="lazy" onerror="this.parentElement.style.background='var(--bg-alt)'">
                 </div>
                 <div class="brand-img-accent">
-                    <img src="{{ asset('images/product2.jpg') }}" alt="Product Detail" loading="lazy" onerror="this.parentElement.style.background='#2D3136'">
+                    <img src="{{ asset('images/product2.jpg') }}" alt="Product Detail" loading="lazy" onerror="this.parentElement.style.background='var(--bg-alt)'">
                 </div>
             </div>
         </div>

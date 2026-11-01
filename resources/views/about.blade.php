@@ -501,13 +501,13 @@
     <div class="container">
         <div class="about-grid">
             <div data-aos="fade-right">
-                <div class="section-label">Our Company</div>
-                <h2 class="section-title">More Than Just <span class="highlight">Manufacturers</span></h2>
+                <div class="section-label">About Us</div>
+                <h2 class="section-title">Your Trusted Partner in <span class="highlight">Customized Kiosk Manufacturing</span></h2>
                 <p style="color:var(--text-secondary);margin-bottom:16px;line-height:1.8">
-                    Kovai Kiosk was founded with a singular vision: to create commercial spaces that inspire customers, empower businesses, and stand the test of time. Based in Coimbatore — the manufacturing capital of Tamil Nadu — we have grown from a small workshop into one of South India's most trusted kiosk manufacturing companies.
+                    At PATHY KIOSK, we specialize in designing and manufacturing innovative kiosk solutions that transform business ideas into functional and attractive spaces. We deliver customized solutions for food, beverage, retail and commercial businesses, combining creative design, quality manufacturing and practical expertise.
                 </p>
                 <p style="color:var(--text-secondary);line-height:1.8">
-                    Our founder, Pathy, started this journey over 15 years ago with a simple belief — that every business, big or small, deserves a beautiful, functional and durable commercial space. Today, we have delivered over 500 projects across India, serving clients from leading retail chains, food and beverage brands, hotels, malls and individual entrepreneurs.
+                    From concept development to final installation, our experienced team manages every stage of the process, including kiosk design, fabrication, brand development, kitchen planning and equipment solutions. We focus on creating business spaces that reflect your brand identity while maximizing functionality and customer appeal.
                 </p>
                 <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap">
                     <a href="{{ route('enquiry.create') }}" class="btn btn-primary" id="about-quote-btn">Get a Free Consultation</a>
